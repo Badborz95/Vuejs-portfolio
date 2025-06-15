@@ -1,0 +1,169 @@
+/* src/assets/main.css */
+
+/* ... (conserve toutes les variables existantes) ... */
+
+/* Variables pour le Light Mode (par défaut) */
+:root {
+  /* Ta palette pour le Light Mode */
+  --bg-primary-light: #FFFFFF; /* Fond principal clair */
+  --bg-secondary-light: #f8f9fa; /* Fond secondaire clair (pour les sections alternées) */
+  --text-dark-light: #333333; /* Texte sombre principal */
+  --text-muted-light: #555555; /* Texte gris plus clair (muted) */
+  --accent-color-light: #030881; /* Couleur d'accentuation vive (bleu foncé) */
+  --gray-color-light: #0C8880; /* Couleur grise/turquoise */
+  --border-color-light: #dee2e6; /* Bordures claires */
+
+  /* Applique les variables de la palette au thème actuel par défaut */
+  --background-color: var(--bg-primary-light);
+  --background-alt-color: var(--bg-secondary-light);
+  --text-color: var(--text-dark-light);
+  --text-secondary-color: var(--text-muted-light);
+  --accent-color: var(--accent-color-light);
+  --gray-color: var(--gray-color-light);
+  --border-color: var(--border-color-light);
+  --carousel-arrow-color-light: rgba(0, 0, 0, 0.8); /* Noir ou gris très foncé pour le Light Mode */
+  --background-alt-color-rgb: 248, 249, 250; /* RGB de #f8f9fa pour Light Mode */
+}
+
+/* Variables pour le Dark Mode */
+body.dark-mode {
+  /* Ta palette pour le Dark Mode */
+  --bg-primary-dark: #111111; /* Fond principal sombre */
+  --bg-secondary-dark: #1a1a1a; /* Fond secondaire sombre (pour les sections alternées, header, cartes) */
+  --text-dark-dark: #e0e0e0; /* Texte clair principal */
+  --text-muted-dark: #a0a0a0; /* Texte gris plus foncé (muted) */
+  --accent-color-dark: #3CDADD; /* Couleur d'accentuation vive (cyan) */
+  --gray-color-dark: #0D153F; /* Couleur gris/bleu foncé */
+  --border-color-dark: #444444; /* Bordures sombres */
+
+  /* Applique les variables de la palette au thème actuel quand dark-mode est activé */
+  --background-color: var(--bg-primary-dark);
+  --background-alt-color: var(--bg-secondary-dark);
+  --text-color: var(--text-dark-dark);
+  --text-secondary-color: var(--text-muted-dark);
+  --accent-color: var(--accent-color-dark);
+  --gray-color: var(--gray-color-dark);
+  --border-color: var(--border-color-dark);
+  --carousel-arrow-color-dark: rgba(255, 255, 255, 0.8); /* Blanc ou gris très clair pour le Dark Mode */
+  --background-alt-color-rgb: 26, 26, 26; /* RGB de #1a1a1a pour Dark Mode */
+
+  /* Nouvelle variable pour le fond du HeroSection en Dark Mode */
+  --hero-background-darkmode: #0a0a0a; /* Un noir plus profond pour le HeroSection */
+}
+
+/* ========================================================== */
+/* Styles Globaux et Surcharge de Bootstrap */
+/* ========================================================== */
+
+body {
+  background-color: var(--background-color) !important;
+  color: var(--text-color) !important;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Surcharger les couleurs de texte Bootstrap */
+.text-dark { color: var(--text-color) !important; }
+.text-muted { color: var(--text-secondary-color) !important; }
+.text-light { color: var(--background-color) !important; }
+.text-primary, .navbar-brand {
+  color: var(--accent-color) !important;
+}
+.text-primary:hover, .navbar-brand:hover {
+  color: var(--accent-color) !important;
+  opacity: 0.9;
+}
+
+/* Surcharger les couleurs de fond Bootstrap (restaurées pour ne pas affecter le header ici) */
+.bg-white {
+  background-color: var(--background-color) !important;
+}
+/* La classe bg-light sera utilisée pour les sections intermédiaires */
+.bg-light {
+  background-color: var(--background-alt-color) !important;
+}
+/* Le footer utilisera le fond alternatif, tout comme les cartes et timeline content */
+.bg-dark,
+.main-footer,
+.card,
+.timeline-content {
+  background-color: var(--background-alt-color) !important;
+  color: var(--text-color) !important;
+  border-color: var(--border-color) !important;
+}
+
+
+/* --- Styles du Header (restaurés aux couleurs du thème sans changement de texte) --- */
+.navbar {
+  background-color: var(--background-alt-color) !important; /* Garde la couleur alternative du thème */
+  transition: background-color 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+/* Header lorsqu'il est scrollé (transparence) */
+header.scrolled {
+  background-color: rgba(var(--background-alt-color-rgb), 0.9) !important; /* 90% d'opacité */
+  backdrop-filter: blur(5px);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15) !important;
+}
+
+/* Les textes et icônes du header restent par défaut, car le HeroSection sera suffisamment sombre */
+.navbar-brand, .nav-link, .btn-outline-secondary {
+  color: var(--text-color) !important; /* Texte de couleur normale du thème (clair en dark mode) */
+}
+.navbar-toggler-icon {
+  background-image: var(--navbar-toggler-icon-filter, url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"));
+}
+body.dark-mode .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+
+/* --- Styles du HeroSection --- */
+/* Pour que le HeroSection ait un fond spécifique en Dark Mode */
+#hero.bg-light-blue { /* Cible l'ID de la section ET sa classe de fond */
+  background: linear-gradient(to bottom right, var(--background-color), var(--background-alt-color)); /* Dégradé basé sur les couleurs du thème */
+  transition: background 0.4s ease;
+}
+
+body.dark-mode #hero.bg-light-blue {
+  /* En Dark Mode, le HeroSection utilise la variable spécifique pour un fond très sombre */
+  background: linear-gradient(to bottom right, var(--hero-background-darkmode), var(--bg-primary-dark)) !important;
+}
+
+/* Flèches du carrousel en Light Mode (par défaut) */
+.carousel-control-prev-icon {
+  /* Flèche gauche */
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='rgba(0, 0, 0, 0.8)'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e") !important;
+}
+
+.carousel-control-next-icon {
+  /* Flèche droite - NOUVEAU CHEMIN SVG */
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='rgba(0, 0, 0, 0.8)'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
+}
+
+/* Flèches du carrousel en Dark Mode */
+body.dark-mode .carousel-control-prev-icon {
+  /* Flèche gauche en Dark Mode */
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='rgba(255, 255, 255, 0.8)'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e") !important;
+}
+
+body.dark-mode .carousel-control-next-icon {
+  /* Flèche droite en Dark Mode - NOUVEAU CHEMIN SVG */
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='rgba(255, 255, 255, 0.8)'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
+}
+
+/* Ajustement pour les boutons de contrôle pour qu'ils soient toujours sur un fond lisible */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 15%;
+  opacity: 0.8;
+  transition: opacity 0.15s ease;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  opacity: 1;
+}
+
+/* ... (conserve les autres styles de composants) ... */
