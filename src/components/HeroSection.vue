@@ -7,7 +7,7 @@
       <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
         <a href="#projects" class="btn btn-primary btn-lg px-4 rounded-pill">Voir mes projets</a>
         <a href="#contact" class="btn btn-outline-primary btn-lg px-4 rounded-pill">Me contacter</a>
-        <a href="/public/doc/Turpal-CV.pdf" download="Turpal-CV.pdf" class="btn btn-success btn-lg px-4 rounded-pill">
+        <a href="/doc/Turpal-CV.pdf" download="Turpal-CV.pdf" class="btn btn-success btn-lg px-4 rounded-pill">
           <i class="fas fa-download me-2"></i> Télécharger CV
         </a>
       </div>
