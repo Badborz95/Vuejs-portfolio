@@ -1,7 +1,7 @@
 <template>
   <section id="hero" class="d-flex align-items-center justify-content-center text-center text-dark py-5 vh-100 bg-light-blue">
     <div class="container">
-      <img src="/public/img/hero.jpg" alt="Ta photo de profil" class="img-fluid rounded-circle border border-5 border-white shadow-lg mb-4" style="width: 180px; height: 180px; object-fit: cover;">
+      <img src="/img/hero.jpg" alt="Ta photo de profil" class="img-fluid rounded-circle border border-5 border-white shadow-lg mb-4" style="width: 180px; height: 180px; object-fit: cover;">
       <h1 class="display-4 fw-bold mb-3 text-primary">Salut, je suis Turpal-Ali DJABRAILOV</h1>
       <p class="lead mb-5 text-muted">Développeur Web passionné et futur alternant en Licence Concepteur Développeur d'Applications.</p>
       <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
