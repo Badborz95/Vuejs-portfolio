@@ -1,7 +1,10 @@
 <template>
   <header :class="['navbar navbar-expand-lg navbar-light fixed-top shadow-sm', { 'scrolled': isScrolled }]">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="#hero">Djabrailov Turpal</a>
+      <a class="navbar-brand d-flex align-items-center" href="#hero">
+        <img :src="headerLogo" alt="Logo de Djabrailov Turpal" class="navbar-logo me-2">
+        <span class="fw-bold">Djabrailov Turpal</span>
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -29,7 +32,8 @@
               <span>{{ isDarkMode ? 'Light Mode' : 'Dark Mode' }}</span>
             </button>
 
-            <div class="dropdown d-lg-none"> <button class="btn btn-outline-secondary btn-sm rounded-circle dropdown-toggle" type="button" id="paletteDropdownMobile" data-bs-toggle="dropdown" aria-expanded="false" title="Choisir une ambiance">
+            <div class="dropdown d-lg-none">
+              <button class="btn btn-outline-secondary btn-sm rounded-circle dropdown-toggle" type="button" id="paletteDropdownMobile" data-bs-toggle="dropdown" aria-expanded="false" title="Choisir une ambiance">
                 <i class="fas fa-palette"></i>
               </button>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="paletteDropdownMobile">
@@ -76,12 +80,16 @@
 </template>
 
 <script>
+// Importer votre logo ici
+import headerLogo from '/img/Logo-head.png'; // <-- Change this path and filename!
+
 export default {
   name: 'Header',
   data() {
     return {
-      isDarkMode: false, // Controls the 'dark-mode' class for the default theme
-      isScrolled: false // Variable for scroll effect
+      isDarkMode: false,
+      isScrolled: false,
+      headerLogo: headerLogo // Assigner l'image importée à une propriété de données
     };
   },
   mounted() {
@@ -92,7 +100,6 @@ export default {
     window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
-    // Helper to get all known palette classes (update this if you add more palettes)
     getAllPaletteClasses() {
       return [
         'palette-radix-light',
@@ -101,53 +108,39 @@ export default {
         'palette-ocean'
       ];
     },
-    // Determines if a given palette name is considered "dark"
     isPaletteConsideredDark(paletteName) {
-      return ['palette-radix-dark'].includes(paletteName); // Customize this array!
+      return ['palette-radix-dark'].includes(paletteName);
     },
-
-    // --- Core Theme Application Logic ---
     applyThemeToBody(mode, palette = null) {
-      // 1. Remove all existing theme-related classes
       document.body.classList.remove('dark-mode', ...this.getAllPaletteClasses());
-
       if (palette) {
-        // 2a. Apply specific palette
         document.body.classList.add(palette);
         localStorage.setItem('currentPalette', palette);
-        localStorage.removeItem('currentMode'); // Palette takes precedence
+        localStorage.removeItem('currentMode');
       } else {
-        // 2b. Apply basic light/dark mode
         if (mode === 'dark') {
           document.body.classList.add('dark-mode');
         }
         localStorage.setItem('currentMode', mode);
-        localStorage.removeItem('currentPalette'); // Basic mode takes precedence
+        localStorage.removeItem('currentPalette');
       }
     },
-
-    // --- Header Button Actions ---
     toggleDarkMode() {
       this.isDarkMode = !this.isDarkMode;
       this.applyThemeToBody(this.isDarkMode ? 'dark' : 'light');
     },
     selectPalette(paletteName) {
       this.applyThemeToBody(null, paletteName);
-      // Update header button's state based on the selected palette's 'darkness'
       this.isDarkMode = this.isPaletteConsideredDark(paletteName);
     },
     resetToDefaultLight() {
       this.applyThemeToBody('light');
       this.isDarkMode = false;
     },
-
-    // --- Initial Load Logic ---
     applySavedTheme() {
       const savedMode = localStorage.getItem('currentMode');
       const savedPalette = localStorage.getItem('currentPalette');
-
       document.body.classList.remove('dark-mode', ...this.getAllPaletteClasses());
-
       if (savedPalette) {
         this.applyThemeToBody(null, savedPalette);
         this.isDarkMode = this.isPaletteConsideredDark(savedPalette);
@@ -160,10 +153,8 @@ export default {
         this.isDarkMode = prefersDark;
       }
     },
-
-    // Method to be called externally (from PortfolioPage)
     updateIsDarkModeState(isDark) {
-        this.isDarkMode = isDark;
+      this.isDarkMode = isDark;
     },
     handleScroll() {
       this.isScrolled = window.scrollY > 50;
@@ -173,7 +164,7 @@ export default {
 </script>
 
 <style scoped>
-/* Your existing Header scoped styles */
+/* Votre CSS existant pour l'en-tête */
 .navbar {
   background-color: var(--background-alt-color) !important;
   transition: background-color 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
@@ -185,20 +176,40 @@ header.scrolled {
   backdrop-filter: blur(5px);
   box-shadow: 0 2px 10px rgba(0,0,0,0.15) !important;
 }
-.navbar-brand, .nav-link {
+/* Mettez à jour .navbar-brand pour un bon alignement avec l'image */
+.navbar-brand {
   color: var(--text-primary) !important;
+  display: flex; /* Utilisez flexbox pour aligner le logo et le texte */
+  align-items: center; /* Centrer verticalement */
 }
-.navbar-brand:hover, .nav-link:hover {
+.navbar-brand:hover {
   color: var(--accent-color) !important;
 }
 .navbar-toggler-icon {
   background-image: var(--navbar-toggler-icon-filter);
 }
-.navbar-brand.fw-bold {
+.navbar-brand .fw-bold { /* Cibler spécifiquement le texte si vous le gardez */
   font-weight: 700;
+  margin-left: 0; /* Réinitialiser la marge si elle était déjà définie sur .navbar-brand */
 }
 
-/* Styles for the palette dropdowns */
+/* Nouveau style pour le logo */
+.navbar-logo {
+  height: 40px; /* Ajustez la hauteur selon vos besoins */
+  width: auto; /* Maintient le ratio d'aspect */
+  margin-right: 10px; /* Espace entre le logo et le texte/liens */
+  vertical-align: middle; /* Assure un bon alignement */
+}
+
+/* Styles pour les liens de navigation */
+.nav-link {
+  color: var(--text-primary) !important;
+}
+.nav-link:hover {
+  color: var(--accent-color) !important;
+}
+
+/* Styles pour les dropdowns de palette (existants) */
 .dropdown-menu {
   background-color: var(--background-alt-color);
   border: 1px solid var(--border-color);
@@ -215,7 +226,6 @@ header.scrolled {
   border-top-color: var(--border-color);
 }
 
-/* Color previews - ensure these are defined! */
 .color-preview {
   width: 20px;
   height: 20px;
@@ -225,6 +235,6 @@ header.scrolled {
 .radix-light-preview { background-color: #F3D768; border-color: #d6b83f; }
 .radix-dark-preview { background-color: #AB6400; border-color: #7b4700; }
 .forest-preview { background-color: #2E8B57; border-color: #006400; }
-.ocean-preview { background-color: #4682B4; border-color: #191970; } /* Using ADD8E6 from main.css */
+.ocean-preview { background-color: #4682B4; border-color: #191970; }
 .default-light-preview { background-color: #FFFFFF; border-color: #dee2e6; }
 </style>
