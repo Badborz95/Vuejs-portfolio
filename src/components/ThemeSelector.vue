@@ -1,11 +1,10 @@
 <template>
   <div
-    class="theme-selector-container"
-    :style="{ top: y + 'px', left: x + 'px' }"
+    class="theme-selector-container d-none d-lg-block" :style="{ top: y + 'px', left: x + 'px' }"
     @mousedown="startDrag"
     @touchstart="startDrag"
   >
-    <button @click="toggleMenu" class="btn btn-primary rounded-circle shadow-lg theme-toggle-btn">
+    <button @click="handleToggleAndDrag" class="btn btn-primary rounded-circle shadow-lg theme-toggle-btn">
       <i class="fas fa-palette"></i>
     </button>
 
@@ -33,7 +32,7 @@
         <div class="color-preview default-light-preview me-2"></div>
         <span>Réinitialiser</span>
       </div>
-      </div>
+    </div>
   </div>
 </template>
 
@@ -48,6 +47,9 @@ export default {
       y: 100,
       offsetX: 0,
       offsetY: 0,
+      initialClientX: 0,
+      initialClientY: 0,
+      dragThreshold: 5, // pixels
     };
   },
   mounted() {
@@ -58,15 +60,13 @@ export default {
 
     this.isMenuOpen = false;
 
-    // Add event listeners for both mouse and touch
     window.addEventListener('mousemove', this.doDrag);
     window.addEventListener('mouseup', this.stopDrag);
-    window.addEventListener('touchmove', this.doDrag, { passive: false }); // { passive: false } to allow preventDefault
+    window.addEventListener('touchmove', this.doDrag, { passive: false });
     window.addEventListener('touchend', this.stopDrag);
     window.addEventListener('touchcancel', this.stopDrag);
   },
   beforeUnmount() {
-    // Remove all event listeners
     window.removeEventListener('mousemove', this.doDrag);
     window.removeEventListener('mouseup', this.stopDrag);
     window.removeEventListener('touchmove', this.doDrag);
@@ -74,6 +74,31 @@ export default {
     window.removeEventListener('touchcancel', this.stopDrag);
   },
   methods: {
+    getAllPaletteClasses() {
+      return [
+        'palette-radix-light',
+        'palette-radix-dark',
+        'palette-forest',
+        'palette-ocean'
+      ];
+    },
+    // Determines if a given palette name is considered "dark" for the header's button state
+    isPaletteConsideredDark(paletteName) {
+        // Customize this array to include all your "dark" palettes
+        return ['palette-radix-dark'].includes(paletteName);
+    },
+    handleToggleAndDrag(e) {
+      const clientX = e.touches ? e.changedTouches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.changedTouches[0].clientY : e.clientY;
+
+      const deltaX = Math.abs(clientX - this.initialClientX);
+      const deltaY = Math.abs(clientY - this.initialClientY);
+
+      if (deltaX > this.dragThreshold || deltaY > this.dragThreshold) {
+        return;
+      }
+      this.toggleMenu();
+    },
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen;
     },
@@ -85,7 +110,12 @@ export default {
       this.offsetX = clientX - this.x;
       this.offsetY = clientY - this.y;
 
-      e.preventDefault(); // Prevent default browser behavior (e.g., text selection on mousedown, scrolling on touchstart)
+      this.initialClientX = clientX;
+      this.initialClientY = clientY;
+
+      if (e.type === 'touchstart') {
+          e.preventDefault();
+      }
     },
     doDrag(e) {
       if (this.isDragging) {
@@ -95,7 +125,6 @@ export default {
         let newX = clientX - this.offsetX;
         let newY = clientY - this.offsetY;
 
-        // Boundary checks to keep it within the viewport
         newX = Math.max(0, Math.min(newX, window.innerWidth - this.$el.offsetWidth));
         newY = Math.max(0, Math.min(newY, window.innerHeight - this.$el.offsetHeight));
 
@@ -104,7 +133,6 @@ export default {
         localStorage.setItem('themeSelectorX', this.x);
         localStorage.setItem('themeSelectorY', this.y);
 
-        // Prevent default scrolling on touch devices during drag
         if (e.type === 'touchmove') {
           e.preventDefault();
         }
@@ -114,35 +142,29 @@ export default {
       this.isDragging = false;
     },
     selectPalette(paletteName) {
-      // Remove all basic mode and other palette classes
       document.body.classList.remove(
         'dark-mode',
-        'palette-radix-light',
-        'palette-radix-dark',
-        'palette-forest',
-        'palette-ocean'
-        // Add any other palette classes you create here
+        ...this.getAllPaletteClasses()
       );
-
-      // Apply the selected palette class
       document.body.classList.add(paletteName);
-
-      // Update localStorage
       localStorage.setItem('currentPalette', paletteName);
-      localStorage.removeItem('currentMode'); // A palette is active, so clear basic mode preference
+      localStorage.removeItem('currentMode');
+
+      // Emit event to inform the Header about the palette's "darkness"
+      this.$emit('palette-selected', this.isPaletteConsideredDark(paletteName));
       this.isMenuOpen = false;
     },
     resetToDefaultLight() {
       document.body.classList.remove(
         'dark-mode',
-        'palette-radix-light',
-        'palette-radix-dark',
-        'palette-forest',
-        'palette-ocean'
+        ...this.getAllPaletteClasses()
       );
       localStorage.setItem('currentMode', 'light');
       localStorage.removeItem('currentPalette');
       this.isMenuOpen = false;
+
+      // Emit event to inform the Header to reset to default light mode
+      this.$emit('reset-to-light');
     }
   }
 };
@@ -152,18 +174,17 @@ export default {
 .theme-selector-container {
   position: fixed;
   z-index: 1050;
-  cursor: grab; /* For desktop */
+  cursor: grab;
   user-select: none;
   top: 100px;
   left: 20px;
-  /* Add smooth transition for movement */
-  transition: top 0.2s ease-out, left 0.2s ease-out; /* Adjusted for smoother feel */
+  transition: top 0.2s ease-out, left 0.2s ease-out;
 }
 
-/* Optional: Remove grab cursor for touch devices if preferred */
-@media (hover: none) and (pointer: coarse) {
+/* Hide on small screens (mobile) */
+@media (max-width: 991.98px) { /* Bootstrap's 'lg' breakpoint is 992px */
   .theme-selector-container {
-    cursor: default; /* No specific cursor for touch */
+    display: none !important;
   }
 }
 
@@ -223,7 +244,6 @@ export default {
   border: 1px solid var(--border-color);
 }
 
-/* Previews for the ambiance palettes */
 .radix-light-preview { background-color: #F3D768; border-color: #d6b83f; }
 .radix-dark-preview { background-color: #AB6400; border-color: #7b4700; }
 .forest-preview { background-color: #2E8B57; border-color: #006400; }

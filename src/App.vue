@@ -1,6 +1,6 @@
 <template>
   <div id="portfolio-page">
-    <Header />
+    <Header @set-header-mode="updateHeaderMode" />
     <HeroSection />
     <AboutSection />
     <ProjectsSection />
@@ -8,7 +8,8 @@
     <ContactSection />
     <ScrollToTopButton />
     <Footer />
-    <ThemeSelector /> </div>
+    <ThemeSelector @palette-selected="handlePaletteSelected" @reset-to-light="handleResetToLight" />
+  </div>
 </template>
 
 <script>
@@ -20,7 +21,7 @@ import TimelineSection from './components/TimelineSection.vue';
 import ContactSection from './components/ContactSection.vue';
 import ScrollToTopButton from './components/ScrollToTopButton.vue';
 import Footer from './components/Footer.vue';
-import ThemeSelector from './components/ThemeSelector.vue'; // Assure-toi que c'est bien là
+import ThemeSelector from './components/ThemeSelector.vue';
 
 export default {
   name: 'PortfolioPage',
@@ -33,24 +34,31 @@ export default {
     ContactSection,
     ScrollToTopButton,
     Footer,
-    ThemeSelector // Et ici
+    ThemeSelector
+  },
+  methods: {
+    updateHeaderMode(isDark) {
+      // This method will be called by Header to update its internal state when a mode is applied
+      // (This specific method might not be directly needed if Header manages its state internally well,
+      // but it's good for demonstrating communication if needed for other cross-component actions)
+      // For now, we mainly need to forward events from ThemeSelector to Header.
+    },
+    handlePaletteSelected(isPaletteDark) {
+      // Find the Header component instance and call a method on it
+      // This is a direct way to communicate from child (ThemeSelector) to sibling (Header)
+      // via parent (PortfolioPage)
+      this.$children.find(child => child.$options.name === 'Header')
+                     .updateIsDarkModeState(isPaletteDark);
+    },
+    handleResetToLight() {
+      // Inform the Header to switch to its default light mode
+      this.$children.find(child => child.$options.name === 'Header')
+                     .updateIsDarkModeState(false);
+    }
   }
 };
 </script>
 
 <style>
-/* ... Tes styles globaux pour body et section ... */
-/* Laisser les styles pour body, html, section ici comme précédemment */
-html {
-  scroll-behavior: smooth;
-}
-body {
-  font-family: 'Roboto', sans-serif;
-  margin: 0;
-}
-section {
-  padding: 80px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
+/* ... Your global styles ... */
 </style>
