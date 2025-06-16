@@ -3,7 +3,17 @@
     <div class="container">
       <img src="/img/hero.jpg" alt="Ta photo de profil" class="img-fluid rounded-circle border border-5 border-5 border-white shadow-lg mb-4" style="width: 180px; height: 180px; object-fit: cover;">
       <h1 class="display-4 fw-bold mb-3 text-primary">Salut, je suis Turpal-Ali DJABRAILOV</h1>
-      <p class="lead mb-5 text-muted">Développeur Web passionné et futur alternant en Licence Concepteur Développeur d'Applications.</p>
+      <p class="lead mb-3 text-muted">Développeur Web passionné et futur alternant en Licence Concepteur Développeur d'Applications.</p>
+      
+      <div class="social-icons mb-4">
+        <a href="https://github.com/Badborz95" target="_blank" rel="noopener noreferrer" class="social-icon me-3">
+          <i class="fab fa-github fa-2x"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/djabrailovturpal/" target="_blank" rel="noopener noreferrer" class="social-icon">
+          <i class="fab fa-linkedin fa-2x"></i>
+        </a>
+      </div>
+
       <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
         <a href="#projects" class="btn btn-primary btn-lg px-4 rounded-pill">Voir mes projets</a>
         <a href="#contact" class="btn btn-outline-primary btn-lg px-4 rounded-pill">Me contacter</a>
@@ -23,11 +33,17 @@ export default {
 
 <style scoped>
 .bg-light-blue {
-  /* REMPLACE CETTE LIGNE */
-  /* background: linear-gradient(to right, #e0f2f7, #bbdefb); */
+  background: var(--hero-background) !important;
+  transition: background 0.4s ease;
+}
 
-  /* PAR CELLE-CI : */
-  background: var(--hero-background) !important; /* Utilise la variable du thème global */
-  transition: background 0.4s ease; /* Ajoute une transition pour une animation fluide au changement */
+/* Styles for social icons */
+.social-icons .social-icon {
+  color: var(--text-primary); /* Use primary text color by default */
+  transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.social-icons .social-icon:hover {
+  color: var(--accent-color); /* Change to accent color on hover */
 }
 </style>
