@@ -21,10 +21,10 @@ import TimelineSection from './components/TimelineSection.vue';
 import ContactSection from './components/ContactSection.vue';
 import ScrollToTopButton from './components/ScrollToTopButton.vue';
 import Footer from './components/Footer.vue';
-import ThemeSelector from './components/ThemeSelector.vue';
+import ThemeSelector from './components/ThemeSelector.vue'; // Make sure this is present if you want the PC version
 
 export default {
-  name: 'PortfolioPage',
+  name: 'PortfolioPage', // Or 'App' if this is your root component
   components: {
     Header,
     HeroSection,
@@ -34,31 +34,46 @@ export default {
     ContactSection,
     ScrollToTopButton,
     Footer,
-    ThemeSelector
+    ThemeSelector // Keep ThemeSelector for PC version
   },
   methods: {
     updateHeaderMode(isDark) {
-      // This method will be called by Header to update its internal state when a mode is applied
-      // (This specific method might not be directly needed if Header manages its state internally well,
-      // but it's good for demonstrating communication if needed for other cross-component actions)
-      // For now, we mainly need to forward events from ThemeSelector to Header.
+      // This method is probably unused if Header manages its own state
+      // but keeping it here for completeness if you have other uses.
     },
     handlePaletteSelected(isPaletteDark) {
       // Find the Header component instance and call a method on it
-      // This is a direct way to communicate from child (ThemeSelector) to sibling (Header)
-      // via parent (PortfolioPage)
-      this.$children.find(child => child.$options.name === 'Header')
-                     .updateIsDarkModeState(isPaletteDark);
+      // This is for communication from ThemeSelector (PC) to Header
+      const headerComponent = this.$children.find(child => child.$options.name === 'Header');
+      if (headerComponent && typeof headerComponent.updateIsDarkModeState === 'function') {
+        headerComponent.updateIsDarkModeState(isPaletteDark);
+      }
     },
     handleResetToLight() {
       // Inform the Header to switch to its default light mode
-      this.$children.find(child => child.$options.name === 'Header')
-                     .updateIsDarkModeState(false);
+      const headerComponent = this.$children.find(child => child.$options.name === 'Header');
+      if (headerComponent && typeof headerComponent.updateIsDarkModeState === 'function') {
+        headerComponent.updateIsDarkModeState(false);
+      }
     }
   }
 };
 </script>
 
+
 <style>
-/* ... Your global styles ... */
+/* ... Tes styles globaux pour body et section ... */
+/* Laisser les styles pour body, html, section ici comme précédemment */
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+}
+section {
+  padding: 80px 20px;
+  max-width: 100%;
+  margin: 0 auto;
+}
 </style>
