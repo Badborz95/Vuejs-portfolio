@@ -39,50 +39,138 @@ export default {
   name: 'Header',
   data() {
     return {
-      isDarkMode: false,
-      isScrolled: false // Nouvelle variable pour le défilement
+      isDarkMode: false, // Controls the 'dark-mode' class
+      isScrolled: false // Variable for scroll effect
     };
   },
   mounted() {
-    // Logique existante pour le Dark Mode
-    const savedMode = localStorage.getItem('theme');
-    if (savedMode) {
-      this.isDarkMode = savedMode === 'dark';
-    } else {
-      this.isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-    this.applyDarkMode();
+    // This component is responsible for setting the initial mode based on saved preferences.
+    this.applySavedTheme();
 
-    // Nouvelle logique pour le défilement du header
+    // Add scroll listener for header styling
     window.addEventListener('scroll', this.handleScroll);
   },
   beforeUnmount() {
-    // N'oublie pas de retirer l'écouteur d'événement lorsque le composant est détruit
     window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
-    // Méthodes existantes pour le Dark Mode
-    toggleDarkMode() {
-      this.isDarkMode = !this.isDarkMode;
-      this.applyDarkMode();
+    // Helper to get all known palette classes (update this if you add more palettes)
+    getAllPaletteClasses() {
+      return [
+        'palette-radix-light',
+        'palette-radix-dark',
+        'palette-forest',
+        'palette-ocean'
+        // Add any other palette classes here
+      ];
     },
-    applyDarkMode() {
+    toggleDarkMode() {
+      // Toggle the internal state
+      this.isDarkMode = !this.isDarkMode;
+      // Apply the new mode to the body and update localStorage
+      this.applyMode();
+    },
+    applyMode() {
+      // Step 1: Remove all custom palette classes (if any are active)
+      document.body.classList.remove(...this.getAllPaletteClasses());
+
+      // Step 2: Apply or remove the 'dark-mode' class based on this.isDarkMode
       if (this.isDarkMode) {
         document.body.classList.add('dark-mode');
-        localStorage.setItem('theme', 'dark');
+        localStorage.setItem('currentMode', 'dark');
       } else {
         document.body.classList.remove('dark-mode');
-        localStorage.setItem('theme', 'light');
+        localStorage.setItem('currentMode', 'light');
+      }
+
+      // Step 3: Clear any saved palette, as the basic mode now takes precedence
+      localStorage.removeItem('currentPalette');
+    },
+    applySavedTheme() {
+      const savedMode = localStorage.getItem('currentMode');
+      const savedPalette = localStorage.getItem('currentPalette');
+
+      // First, ensure a clean slate by removing all known theme/palette classes
+      document.body.classList.remove('dark-mode', ...this.getAllPaletteClasses());
+
+      // Priority: Palette from ThemeSelector > Basic Light/Dark Mode > System preference
+      if (savedPalette) {
+        // If a specific palette was saved, apply it
+        document.body.classList.add(savedPalette);
+        this.isDarkMode = false; // Ensure header button reflects a non-dark-mode state
+      } else if (savedMode) {
+        // If a basic mode (light/dark) was saved
+        this.isDarkMode = savedMode === 'dark';
+        if (this.isDarkMode) {
+          document.body.classList.add('dark-mode');
+        }
+      } else {
+        // No saved preference, default to system preference (or light if none)
+        this.isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (this.isDarkMode) {
+          document.body.classList.add('dark-mode');
+        }
+        localStorage.setItem('currentMode', this.isDarkMode ? 'dark' : 'light');
       }
     },
-    // Nouvelle méthode pour gérer le défilement
     handleScroll() {
-      // Met isScrolled à true si on a défilé plus de 50px, sinon false
       this.isScrolled = window.scrollY > 50;
     }
   }
 };
 </script>
+
+<style scoped>
+/* Your existing scoped styles for the header go here */
+/* (e.g., .navbar, .navbar-brand, .nav-link, .navbar-toggler-icon, etc.) */
+
+/* Make sure your .btn-outline-secondary and .btn-dark styles are compatible with theming */
+.btn-outline-secondary {
+  color: var(--text-color) !important;
+  border-color: var(--border-color) !important;
+}
+.btn-outline-secondary:hover {
+  background-color: var(--border-color) !important;
+  color: var(--text-primary) !important; /* Adjust if needed for contrast */
+}
+.btn-dark { /* This button is probably for the 'Dark' mode in the header */
+  background-color: var(--bg-primary) !important; /* This should be the accent color in light mode, or a dark background in dark mode */
+  color: var(--accent-color) !important; /* Text color on this button */
+  border-color: var(--accent-color) !important;
+}
+.btn-dark:hover {
+    background-color: var(--accent-color) !important;
+    color: var(--bg-primary) !important;
+}
+
+
+/* Ensure the navbar styles use the CSS variables for theming */
+.navbar {
+  background-color: var(--background-alt-color) !important;
+  transition: background-color 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important; /* Keep a subtle shadow */
+  border-bottom: 1px solid var(--border-color) !important;
+}
+header.scrolled {
+  background-color: rgba(var(--background-alt-color-rgb), 0.9) !important;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15) !important;
+}
+.navbar-brand, .nav-link {
+  color: var(--text-primary) !important; /* Ensure brand and links use primary text color */
+}
+.navbar-brand:hover, .nav-link:hover {
+  color: var(--accent-color) !important; /* Accent color on hover */
+}
+.navbar-toggler-icon {
+  background-image: var(--navbar-toggler-icon-filter); /* Uses SVG from main.css */
+}
+
+/* Specific styles for your `fw-bold` class on navbar-brand if it's not inherited */
+.navbar-brand.fw-bold {
+  font-weight: 700; /* Assuming fw-bold means font-weight: bold or 700 */
+}
+</style>
 
 <style scoped>
 /* Les styles existants pour le header */

@@ -8,7 +8,7 @@
     <ContactSection />
     <ScrollToTopButton />
     <Footer />
-  </div>
+    <ThemeSelector /> </div>
 </template>
 
 <script>
@@ -20,6 +20,7 @@ import TimelineSection from './components/TimelineSection.vue';
 import ContactSection from './components/ContactSection.vue';
 import ScrollToTopButton from './components/ScrollToTopButton.vue';
 import Footer from './components/Footer.vue';
+import ThemeSelector from './components/ThemeSelector.vue'; // Assure-toi que c'est bien là
 
 export default {
   name: 'PortfolioPage',
@@ -31,23 +32,22 @@ export default {
     TimelineSection,
     ContactSection,
     ScrollToTopButton,
-    Footer
+    Footer,
+    ThemeSelector // Et ici
   }
 };
 </script>
 
 <style>
-/* Styles globaux (police, couleurs de base, resets CSS) */
+/* ... Tes styles globaux pour body et section ... */
+/* Laisser les styles pour body, html, section ici comme précédemment */
 html {
-  scroll-behavior: smooth; /* Permet un défilement doux vers les ancres */
+  scroll-behavior: smooth;
 }
 body {
-  font-family: 'Roboto', sans-serif; /* Exemple de police */
+  font-family: 'Roboto', sans-serif;
   margin: 0;
-  background-color: #f8f9fa; /* Couleur de fond légère */
-  color: #333;
 }
-/* Styles pour les sections (padding, marges, etc.) */
 section {
   padding: 80px 20px;
   max-width: 1200px;

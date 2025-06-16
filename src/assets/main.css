@@ -1,59 +1,167 @@
 /* src/assets/main.css */
 
-/* ... (conserve toutes les variables existantes) ... */
+/* ========================================================== */
+/* Définition des Variables CSS Globales pour les Thèmes/Palettes */
+/* ========================================================== */
 
-/* Variables pour le Light Mode (par défaut) */
+/* Mode Light par défaut (appliqué à :root et si aucune classe de thème/palette sur body) */
 :root {
-  /* Ta palette pour le Light Mode */
-  --bg-primary-light: #FFFFFF; /* Fond principal clair */
-  --bg-secondary-light: #f8f9fa; /* Fond secondaire clair (pour les sections alternées) */
-  --text-dark-light: #333333; /* Texte sombre principal */
-  --text-muted-light: #555555; /* Texte gris plus clair (muted) */
-  --accent-color-light: #030881; /* Couleur d'accentuation vive (bleu foncé) */
-  --gray-color-light: #0C8880; /* Couleur grise/turquoise */
-  --border-color-light: #dee2e6; /* Bordures claires */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #f8f9fa;
+  --text-primary: #333333;
+  --text-secondary: #555555;
+  --accent: #030881;
+  --gray: #0C8880;
+  --border: #dee2e6;
 
-  /* Applique les variables de la palette au thème actuel par défaut */
-  --background-color: var(--bg-primary-light);
-  --background-alt-color: var(--bg-secondary-light);
-  --text-color: var(--text-dark-light);
-  --text-secondary-color: var(--text-muted-light);
-  --accent-color: var(--accent-color-light);
-  --gray-color: var(--gray-color-light);
-  --border-color: var(--border-color-light);
-  --carousel-arrow-color-light: rgba(0, 0, 0, 0.8); /* Noir ou gris très foncé pour le Light Mode */
-  --background-alt-color-rgb: 248, 249, 250; /* RGB de #f8f9fa pour Light Mode */
+  --background-color: var(--bg-primary);
+  --background-alt-color: var(--bg-secondary);
+  --text-color: var(--text-primary);
+  --text-muted-color: var(--text-secondary);
+  --accent-color: var(--accent);
+  --gray-color: var(--gray);
+  --border-color: var(--border);
+
+  --carousel-arrow-fill: rgba(0, 0, 0, 0.8);
+  --navbar-toggler-icon-filter: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  --background-alt-color-rgb: 248, 249, 250;
+  --hero-background: linear-gradient(to right, #e0f2f7, #bbdefb);
 }
 
-/* Variables pour le Dark Mode */
+/* Mode Dark par défaut (appliqué via la classe 'dark-mode' par le Header) */
 body.dark-mode {
-  /* Ta palette pour le Dark Mode */
-  --bg-primary-dark: #111111; /* Fond principal sombre */
-  --bg-secondary-dark: #1a1a1a; /* Fond secondaire sombre (pour les sections alternées, header, cartes) */
-  --text-dark-dark: #e0e0e0; /* Texte clair principal */
-  --text-muted-dark: #a0a0a0; /* Texte gris plus foncé (muted) */
-  --accent-color-dark: #3CDADD; /* Couleur d'accentuation vive (cyan) */
-  --gray-color-dark: #0D153F; /* Couleur gris/bleu foncé */
-  --border-color-dark: #444444; /* Bordures sombres */
+  --bg-primary: #111111;
+  --bg-secondary: #1a1a1a;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --accent: #3CDADD;
+  --gray: #0D153F;
+  --border: #444444;
 
-  /* Applique les variables de la palette au thème actuel quand dark-mode est activé */
-  --background-color: var(--bg-primary-dark);
-  --background-alt-color: var(--bg-secondary-dark);
-  --text-color: var(--text-dark-dark);
-  --text-secondary-color: var(--text-muted-dark);
-  --accent-color: var(--accent-color-dark);
-  --gray-color: var(--gray-color-dark);
-  --border-color: var(--border-color-dark);
-  --carousel-arrow-color-dark: rgba(255, 255, 255, 0.8); /* Blanc ou gris très clair pour le Dark Mode */
-  --background-alt-color-rgb: 26, 26, 26; /* RGB de #1a1a1a pour Dark Mode */
+  --background-color: var(--bg-primary);
+  --background-alt-color: var(--bg-secondary);
+  --text-color: var(--text-primary);
+  --text-muted-color: var(--text-secondary);
+  --accent-color: var(--accent);
+  --gray-color: var(--gray);
+  --border-color: var(--border);
 
-  /* Nouvelle variable pour le fond du HeroSection en Dark Mode */
-  --hero-background-darkmode: #0a0a0a; /* Un noir plus profond pour le HeroSection */
+  --carousel-arrow-fill: rgba(255, 255, 255, 0.8);
+  --navbar-toggler-icon-filter: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  --background-alt-color-rgb: 26, 26, 26;
+  --hero-background: #0a0a0a;
+}
+
+/* ========================================================== */
+/* Palettes d'ambiance (appliquées via des classes spécifiques par ThemeSelector) */
+/* ========================================================== */
+
+/* Palette Radix UI (Claire) */
+body.palette-radix-light {
+  --bg-primary: #F3D768;
+  --bg-secondary: #fbeba0;
+  --text-primary: #333333;
+  --text-secondary: #555555;
+  --accent: #8EC8F6;
+  --gray: #8ECEAA;
+  --border: #d6b83f;
+
+  --background-color: var(--bg-primary);
+  --background-alt-color: var(--bg-secondary);
+  --text-color: var(--text-primary);
+  --text-muted-color: var(--text-secondary);
+  --accent-color: var(--accent);
+  --gray-color: var(--gray);
+  --border-color: var(--border);
+
+  --carousel-arrow-fill: rgba(0, 0, 0, 0.8);
+  --navbar-toggler-icon-filter: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  --background-alt-color-rgb: 251, 235, 160;
+  --hero-background: linear-gradient(to right, #F3D768, #fbeba0);
+}
+
+/* Palette Radix UI (Sombre) */
+body.palette-radix-dark {
+  --bg-primary: #AB6400;
+  --bg-secondary: #c07a00;
+  --text-primary: #f0f0f0;
+  --text-secondary: #d0d0d0;
+  --accent: #1D3E56;
+  --gray: #193B2D;
+  --border: #7b4700;
+
+  --background-color: var(--bg-primary);
+  --background-alt-color: var(--bg-secondary);
+  --text-color: var(--text-primary);
+  --text-muted-color: var(--text-secondary);
+  --accent-color: var(--accent);
+  --gray-color: var(--gray);
+  --border-color: var(--border);
+
+  --carousel-arrow-fill: rgba(255, 255, 255, 0.8);
+  --navbar-toggler-icon-filter: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  --background-alt-color-rgb: 192, 122, 0;
+  --hero-background: linear-gradient(to bottom right, #804a00, #ab6400);
+}
+
+/* Nouvelle Palette : Ambiance Forêt (Exemple) */
+body.palette-forest {
+  --bg-primary: #F0F5EE; /* Beige très clair, presque blanc cassé */
+  --bg-secondary: #DAE2D6; /* Vert clair doux */
+  --text-primary: #2F4F4F; /* Vert foncé/gris-bleu (Dark Slate Gray) */
+  --text-secondary: #5F9EA0; /* Vert-bleu cadet */
+  --accent: #8FBC8F; /* Vert forêt clair */
+  --gray: #778899; /* Gris acier */
+  --border: #90EE90; /* Vert pâle */
+
+  --background-color: var(--bg-primary);
+  --background-alt-color: var(--bg-secondary);
+  --text-color: var(--text-primary);
+  --text-muted-color: var(--text-secondary);
+  --accent-color: var(--accent);
+  --gray-color: var(--gray);
+  --border-color: var(--border);
+
+  --carousel-arrow-fill: rgba(0, 0, 0, 0.8);
+  --navbar-toggler-icon-filter: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  --background-alt-color-rgb: 218, 226, 214; /* RGB de #DAE2D6 */
+  --hero-background: linear-gradient(to bottom, #A2CCB6, #DAE2D6); /* Dégradé vert naturel */
+}
+
+/* Nouvelle Palette : Ambiance Océan (Corrigée pour la lisibilité du texte et des icônes) */
+body.palette-ocean {
+  --bg-primary: #ADD8E6; /* Bleu clair */
+  --bg-secondary: #87CEEB; /* Bleu ciel pour alt */
+  --text-primary: #000033; /* Bleu marine très foncé (presque noir) */
+  --text-secondary: #000066; /* Bleu marine foncé */
+  --accent: #13756b; /* Turquoise */
+  --gray: #6A5ACD; /* Bleu ardoise */
+  --border: #00BFFF; /* Bleu azur */
+
+  --background-color: var(--bg-primary);
+  --background-alt-color: var(--bg-secondary);
+  --text-color: var(--text-primary);
+  --text-muted-color: var(--text-secondary);
+  --accent-color: var(--accent);
+  --gray-color: var(--gray);
+  --border-color: var(--border);
+
+  --carousel-arrow-fill: rgba(0, 0, 0, 0.8); /* Noir/sombre pour les icônes sur fond clair */
+  --navbar-toggler-icon-filter: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); /* Icône foncée pour navbar */
+  --background-alt-color-rgb: 135, 206, 235; /* RGB de #87CEEB */
+  --hero-background: linear-gradient(to top, #4682B4, #87CEEB); /* Dégradé bleu océan */
 }
 
 /* ========================================================== */
 /* Styles Globaux et Surcharge de Bootstrap */
 /* ========================================================== */
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   background-color: var(--background-color) !important;
@@ -61,9 +169,12 @@ body {
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-/* Surcharger les couleurs de texte Bootstrap */
+/* Surcharger les couleurs de texte Bootstrap (utiliser les variables du thème) */
+p, span, div, h1, h2, h3, h4, h5, h6, li, a:not(.btn), .text-body {
+    color: var(--text-color) !important;
+}
 .text-dark { color: var(--text-color) !important; }
-.text-muted { color: var(--text-secondary-color) !important; }
+.text-muted { color: var(--text-muted-color) !important; }
 .text-light { color: var(--background-color) !important; }
 .text-primary, .navbar-brand {
   color: var(--accent-color) !important;
@@ -73,15 +184,13 @@ body {
   opacity: 0.9;
 }
 
-/* Surcharger les couleurs de fond Bootstrap (restaurées pour ne pas affecter le header ici) */
+/* Surcharger les couleurs de fond Bootstrap */
 .bg-white {
   background-color: var(--background-color) !important;
 }
-/* La classe bg-light sera utilisée pour les sections intermédiaires */
 .bg-light {
   background-color: var(--background-alt-color) !important;
 }
-/* Le footer utilisera le fond alternatif, tout comme les cartes et timeline content */
 .bg-dark,
 .main-footer,
 .card,
@@ -91,79 +200,53 @@ body {
   border-color: var(--border-color) !important;
 }
 
-
-/* --- Styles du Header (restaurés aux couleurs du thème sans changement de texte) --- */
+/* --- Styles du Header --- */
 .navbar {
-  background-color: var(--background-alt-color) !important; /* Garde la couleur alternative du thème */
+  background-color: var(--background-alt-color) !important;
   transition: background-color 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
   border-bottom: 1px solid var(--border-color) !important;
 }
-
-/* Header lorsqu'il est scrollé (transparence) */
 header.scrolled {
-  background-color: rgba(var(--background-alt-color-rgb), 0.9) !important; /* 90% d'opacité */
+  background-color: rgba(var(--background-alt-color-rgb), 0.9) !important;
   backdrop-filter: blur(5px);
   box-shadow: 0 2px 10px rgba(0,0,0,0.15) !important;
 }
-
-/* Les textes et icônes du header restent par défaut, car le HeroSection sera suffisamment sombre */
 .navbar-brand, .nav-link, .btn-outline-secondary {
-  color: var(--text-color) !important; /* Texte de couleur normale du thème (clair en dark mode) */
+  color: var(--text-color) !important;
 }
 .navbar-toggler-icon {
-  background-image: var(--navbar-toggler-icon-filter, url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"));
+  background-image: var(--navbar-toggler-icon-filter);
 }
-body.dark-mode .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}
-
 
 /* --- Styles du HeroSection --- */
-/* Pour que le HeroSection ait un fond spécifique en Dark Mode */
-#hero.bg-light-blue { /* Cible l'ID de la section ET sa classe de fond */
-  background: linear-gradient(to bottom right, var(--background-color), var(--background-alt-color)); /* Dégradé basé sur les couleurs du thème */
+#hero.bg-light-blue {
+  background: var(--hero-background) !important;
   transition: background 0.4s ease;
 }
 
-body.dark-mode #hero.bg-light-blue {
-  /* En Dark Mode, le HeroSection utilise la variable spécifique pour un fond très sombre */
-  background: linear-gradient(to bottom right, var(--hero-background-darkmode), var(--bg-primary-dark)) !important;
+/* --- Styles du Carrousel (Flèches et Indicateurs) --- */
+.carousel-indicators {
+  display: none !important;
 }
-
-/* Flèches du carrousel en Light Mode (par défaut) */
 .carousel-control-prev-icon {
-  /* Flèche gauche */
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='rgba(0, 0, 0, 0.8)'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e") !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='var(--carousel-arrow-fill)'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e") !important;
 }
-
 .carousel-control-next-icon {
-  /* Flèche droite - NOUVEAU CHEMIN SVG */
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='rgba(0, 0, 0, 0.8)'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='var(--carousel-arrow-fill)'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
 }
-
-/* Flèches du carrousel en Dark Mode */
-body.dark-mode .carousel-control-prev-icon {
-  /* Flèche gauche en Dark Mode */
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='rgba(255, 255, 255, 0.8)'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e") !important;
-}
-
-body.dark-mode .carousel-control-next-icon {
-  /* Flèche droite en Dark Mode - NOUVEAU CHEMIN SVG */
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='rgba(255, 255, 255, 0.8)'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
-}
-
-/* Ajustement pour les boutons de contrôle pour qu'ils soient toujours sur un fond lisible */
 .carousel-control-prev,
 .carousel-control-next {
   width: 15%;
   opacity: 0.8;
   transition: opacity 0.15s ease;
 }
-
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
   opacity: 1;
 }
 
-/* ... (conserve les autres styles de composants) ... */
+/* Style spécifique pour la compétence PHP/Symfony */
+.skill-php-symfony {
+  background-color: #6B4E0024 !important;
+}
