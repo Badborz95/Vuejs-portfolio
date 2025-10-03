@@ -76,6 +76,15 @@ const projectsData = [
   },
   {
     id: 3,
+    title: "Site Librairie html/css/js",
+    description: "Un site de librairie en ligne développé avec HTML, CSS et JavaScript, permettant aux utilisateurs de parcourir et acheter des livres. Realisé de mon cote pour tester mes competences, c'est une version amelioree de mon premier site presse.",
+    technologies: ["HTML", "CSS", "JavaScript"],
+    image: "/img/Livre-Ouver.png", // Assure-toi que les chemins d'images sont corrects
+    githubLink: "https://github.com/Badborz95/site-livres",
+    demoLink: "https://bookyclub.netlify.app/"
+  },
+  {
+    id: 4,
     title: "InstantGeek - site vente de jeux vidéo VueJS",
     description: "Un site e-commerce développé avec Vue.js, permettant de vendre des jeux vidéo en ligne. Realisé en groupe durant la POE.",
     technologies: ["Vue.js", "Vue Router", "Vuex", "Firebase", "Bootstrap", "Pinia"],
@@ -84,7 +93,7 @@ const projectsData = [
     demoLink: "https://instantgeek.netlify.app/"
   },
   {
-    id: 4,
+    id: 5,
     title: "Site de ventes de jeux vidéo HTML/CSS/JS",
     description: "Un site de ventes de jeux vidéo développé durant la POE avec HTML, CSS et JavaScript. Il permet aux utilisateurs de parcourir et acheter des jeux. un exercice personnel.",
     technologies: ["HTML", "CSS", "JavaScript"],
@@ -93,7 +102,7 @@ const projectsData = [
     demoLink: "https://gemustory.netlify.app/"
   },
   {
-    id: 5,
+    id: 6,
     title: "Knight's Quest - Jeu GODOT",
     description: "Un jeu d'aventure développé avec le moteur Godot, où le joueur incarne un chevalier en quête de sauver son royaume. Effectué en suivant un tutoriel Youtube.",
     technologies: ["Godot", "GDScript"],
