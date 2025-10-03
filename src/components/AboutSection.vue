@@ -14,6 +14,7 @@
             <li class="badge bg-info text-dark py-2 px-3 fs-6">JavaScript (ES6+)</li>
             <li class="badge bg-success py-2 px-3 fs-6">Vue.js</li>
             <li class="badge bg-success py-2 px-3 fs-6">React.js</li>
+            <li class="badge bg-danger py-2 px-3 fs-6">Angular</li>
             <li class="badge bg-secondary py-2 px-3 fs-6">PHP</li>
             <li class="badge bg-secondary py-2 px-3 fs-6">Symfony</li>
             <li class="badge bg-warning text-dark py-2 px-3 fs-6">MySQL</li>
@@ -21,6 +22,8 @@
             <li class="badge bg-dark py-2 px-3 fs-6">Git</li>
             <li class="badge bg-dark py-2 px-3 fs-6">Webpack</li>
             <li class="badge bg-dark py-2 px-3 fs-6">npm/Yarn</li>
+            <li class="badge bg-dark py-2 px-3 fs-6">GDScript</li>
+            <li class="badge bg-dark py-2 px-3 fs-6">Godot</li>
           </ul>
         </div>
       </div>
@@ -35,5 +38,4 @@ export default {
 </script>
 
 <style scoped>
-/* Pas besoin de beaucoup de styles custom avec Bootstrap ici */
 </style>

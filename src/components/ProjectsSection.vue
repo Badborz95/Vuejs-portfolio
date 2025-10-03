@@ -91,7 +91,16 @@ const projectsData = [
     image: "/img/Gemu-Store.png",
     githubLink: "https://github.com/Badborz95/Gemustore",
     demoLink: "https://gemustory.netlify.app/"
-  }
+  },
+  {
+    id: 5,
+    title: "Knight's Quest - Jeu GODOT",
+    description: "Un jeu d'aventure développé avec le moteur Godot, où le joueur incarne un chevalier en quête de sauver son royaume. Effectué en suivant un tutoriel Youtube.",
+    technologies: ["Godot", "GDScript"],
+    image: "/img/Knight.png",
+    githubLink: "https://github.com/Badborz95/Godot-projet",
+    demoLink: "https://badborz95.itch.io/knights-story"
+    }
 ];
 
 export default {
