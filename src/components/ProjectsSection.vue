@@ -79,7 +79,7 @@ const projectsData = [
     title: "Site Librairie html/css/js",
     description: "Un site de librairie en ligne développé avec HTML, CSS et JavaScript, permettant aux utilisateurs de parcourir et acheter des livres. Realisé de mon cote pour tester mes competences, c'est une version amelioree de mon premier site presse.",
     technologies: ["HTML", "CSS", "JavaScript"],
-    image: "/img/Livre-Ouver.png", // Assure-toi que les chemins d'images sont corrects
+    image: "/img/Livre-Ouvert.png", // Assure-toi que les chemins d'images sont corrects
     githubLink: "https://github.com/Badborz95/site-livres",
     demoLink: "https://bookyclub.netlify.app/"
   },
