@@ -1,73 +1,56 @@
 <template>
-  <header :class="['navbar navbar-expand-lg navbar-light fixed-top shadow-sm', { 'scrolled': isScrolled }]">
+  <header :class="['navbar navbar-expand-lg fixed-top', { 'scrolled': isScrolled }]">
     <div class="container">
-      <a class="navbar-brand d-flex align-items-center" href="#hero">
-        <img :src="headerLogo" alt="Logo de Djabrailov Turpal" class="navbar-logo me-2">
-        <span class="fw-bold">Djabrailov Turpal</span>
+
+      <!-- Brand -->
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#hero">
+        <img :src="headerLogo" alt="Logo Turpal" class="navbar-logo">
+        <span class="brand-text">Turpal <span class="brand-accent">DJABRAILOV</span></span>
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+
+      <!-- Toggler mobile -->
+      <button class="navbar-toggler border-0 d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="toggler-bar"></span>
+        <span class="toggler-bar"></span>
+        <span class="toggler-bar"></span>
       </button>
+
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav align-items-center">
-          <li class="nav-item">
-            <a class="nav-link" href="#hero">Accueil</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#about">À Propos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#projects">Projets</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#timeline">Parcours</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#contact">Contact</a>
+        <ul class="navbar-nav align-items-center gap-1">
+          <li class="nav-item" v-for="link in navLinks" :key="link.href">
+            <a class="nav-link" :href="link.href">{{ link.label }}</a>
           </li>
 
-          <li class="nav-item ms-lg-3 d-flex align-items-center">
-            <button @click="toggleDarkMode" class="btn btn-outline-secondary btn-sm rounded-pill d-flex align-items-center px-3 py-1 me-2">
-              <i :class="['me-2', isDarkMode ? 'fas fa-sun' : 'fas fa-moon']"></i>
-              <span>{{ isDarkMode ? 'Light Mode' : 'Dark Mode' }}</span>
+          <!-- Dark mode toggle -->
+          <li class="nav-item ms-lg-2">
+            <button @click="toggleDarkMode" class="theme-toggle-btn" :aria-label="isDarkMode ? 'Passer en clair' : 'Passer en sombre'">
+              <i :class="isDarkMode ? 'fas fa-sun' : 'fas fa-moon'"></i>
+              <span>{{ isDarkMode ? 'Light' : 'Dark' }}</span>
             </button>
+          </li>
 
-            <div class="dropdown d-lg-none">
-              <button class="btn btn-outline-secondary btn-sm rounded-circle dropdown-toggle" type="button" id="paletteDropdownMobile" data-bs-toggle="dropdown" aria-expanded="false" title="Choisir une ambiance">
+          <!-- Palette mobile only -->
+          <li class="nav-item d-lg-none">
+            <div class="dropdown">
+              <button class="palette-mobile-btn dropdown-toggle" type="button"
+                      data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fas fa-palette"></i>
               </button>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="paletteDropdownMobile">
-                <li><h6 class="dropdown-header">Choisir une ambiance</h6></li>
+              <ul class="dropdown-menu dropdown-menu-end palette-dropdown">
+                <li><h6 class="dropdown-header"><i class="fas fa-swatchbook me-2"></i>Ambiances</h6></li>
                 <li><hr class="dropdown-divider"></li>
-                <li>
-                  <a class="dropdown-item d-flex align-items-center" href="#" @click.prevent="selectPalette('palette-radix-light')">
-                    <div class="color-preview radix-light-preview me-2"></div>
-                    <span>Ambiance Radix UI (Clair)</span>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item d-flex align-items-center" href="#" @click.prevent="selectPalette('palette-radix-dark')">
-                    <div class="color-preview radix-dark-preview me-2"></div>
-                    <span>Ambiance Radix UI (Sombre)</span>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item d-flex align-items-center" href="#" @click.prevent="selectPalette('palette-forest')">
-                    <div class="color-preview forest-preview me-2"></div>
-                    <span>Ambiance Forêt</span>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item d-flex align-items-center" href="#" @click.prevent="selectPalette('palette-ocean')">
-                    <div class="color-preview ocean-preview me-2"></div>
-                    <span>Ambiance Océan</span>
+                <li v-for="p in palettes" :key="p.value">
+                  <a class="dropdown-item d-flex align-items-center gap-2" href="#" @click.prevent="selectPalette(p.value)">
+                    <span class="palette-dot" :style="{ background: p.color }"></span>
+                    {{ p.label }}
                   </a>
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
-                  <a class="dropdown-item d-flex align-items-center" href="#" @click.prevent="resetToDefaultLight()">
-                    <div class="color-preview default-light-preview me-2"></div>
-                    <span>Réinitialiser (Thème Clair)</span>
+                  <a class="dropdown-item d-flex align-items-center gap-2" href="#" @click.prevent="resetToDefaultLight()">
+                    <span class="palette-dot" style="background:#fff; border:1px solid #dee2e6"></span>
+                    Réinitialiser
                   </a>
                 </li>
               </ul>
@@ -80,8 +63,7 @@
 </template>
 
 <script>
-// Importer votre logo ici
-import headerLogo from '/img/Logo-head.png'; // <-- Change this path and filename!
+import headerLogo from '/img/Logo-head.png';
 
 export default {
   name: 'Header',
@@ -89,7 +71,20 @@ export default {
     return {
       isDarkMode: false,
       isScrolled: false,
-      headerLogo: headerLogo // Assigner l'image importée à une propriété de données
+      headerLogo,
+      navLinks: [
+        { href: '#hero',     label: 'Accueil' },
+        { href: '#about',    label: 'À Propos' },
+        { href: '#projects', label: 'Projets' },
+        { href: '#timeline', label: 'Parcours' },
+        { href: '#contact',  label: 'Contact' }
+      ],
+      palettes: [
+        { value: 'palette-radix-light', label: 'Radix UI Clair',  color: '#F3D768' },
+        { value: 'palette-radix-dark',  label: 'Radix UI Sombre', color: '#AB6400' },
+        { value: 'palette-forest',      label: 'Forêt',           color: '#2E8B57' },
+        { value: 'palette-ocean',       label: 'Océan',           color: '#4682B4' }
+      ]
     };
   },
   mounted() {
@@ -101,16 +96,9 @@ export default {
   },
   methods: {
     getAllPaletteClasses() {
-      return [
-        'palette-radix-light',
-        'palette-radix-dark',
-        'palette-forest',
-        'palette-ocean'
-      ];
+      return ['palette-radix-light', 'palette-radix-dark', 'palette-forest', 'palette-ocean'];
     },
-    isPaletteConsideredDark(paletteName) {
-      return ['palette-radix-dark'].includes(paletteName);
-    },
+    isPaletteConsideredDark(p) { return ['palette-radix-dark'].includes(p); },
     applyThemeToBody(mode, palette = null) {
       document.body.classList.remove('dark-mode', ...this.getAllPaletteClasses());
       if (palette) {
@@ -118,9 +106,7 @@ export default {
         localStorage.setItem('currentPalette', palette);
         localStorage.removeItem('currentMode');
       } else {
-        if (mode === 'dark') {
-          document.body.classList.add('dark-mode');
-        }
+        if (mode === 'dark') document.body.classList.add('dark-mode');
         localStorage.setItem('currentMode', mode);
         localStorage.removeItem('currentPalette');
       }
@@ -138,8 +124,8 @@ export default {
       this.isDarkMode = false;
     },
     applySavedTheme() {
-      const savedMode = localStorage.getItem('currentMode');
       const savedPalette = localStorage.getItem('currentPalette');
+      const savedMode = localStorage.getItem('currentMode');
       document.body.classList.remove('dark-mode', ...this.getAllPaletteClasses());
       if (savedPalette) {
         this.applyThemeToBody(null, savedPalette);
@@ -148,93 +134,186 @@ export default {
         this.applyThemeToBody(savedMode);
         this.isDarkMode = savedMode === 'dark';
       } else {
-        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
         this.applyThemeToBody(prefersDark ? 'dark' : 'light');
         this.isDarkMode = prefersDark;
       }
     },
-    updateIsDarkModeState(isDark) {
-      this.isDarkMode = isDark;
-    },
-    handleScroll() {
-      this.isScrolled = window.scrollY > 50;
-    }
+    updateIsDarkModeState(isDark) { this.isDarkMode = isDark; },
+    handleScroll() { this.isScrolled = window.scrollY > 50; }
   }
 };
 </script>
 
 <style scoped>
-/* Votre CSS existant pour l'en-tête */
+/* ===== NAVBAR BASE ===== */
 .navbar {
-  background-color: var(--background-alt-color) !important;
-  transition: background-color 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
-  border-bottom: 1px solid var(--border-color) !important;
+  background-color: var(--background-alt-color, #ffffff) !important;
+  border-bottom: 1px solid var(--border-color, #e9ecef);
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease;
+  padding: 0.6rem 0;
 }
-header.scrolled {
-  background-color: rgba(var(--background-alt-color-rgb), 0.9) !important;
-  backdrop-filter: blur(5px);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.15) !important;
+
+.navbar.scrolled {
+  /* Utilise la variable du thème au lieu du blanc fixe */
+  background-color: var(--background-alt-color, #ffffff) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08) !important;
+  opacity: 0.95;
 }
-/* Mettez à jour .navbar-brand pour un bon alignement avec l'image */
+
+/* ===== BRAND ===== */
 .navbar-brand {
-  color: var(--text-primary) !important;
-  display: flex; /* Utilisez flexbox pour aligner le logo et le texte */
-  align-items: center; /* Centrer verticalement */
-}
-.navbar-brand:hover {
-  color: var(--accent-color) !important;
-}
-.navbar-toggler-icon {
-  background-image: var(--navbar-toggler-icon-filter);
-}
-.navbar-brand .fw-bold { /* Cibler spécifiquement le texte si vous le gardez */
-  font-weight: 700;
-  margin-left: 0; /* Réinitialiser la marge si elle était déjà définie sur .navbar-brand */
+  text-decoration: none;
 }
 
-/* Nouveau style pour le logo */
 .navbar-logo {
-  height: 40px; /* Ajustez la hauteur selon vos besoins */
-  width: auto; /* Maintient le ratio d'aspect */
-  margin-right: 10px; /* Espace entre le logo et le texte/liens */
-  vertical-align: middle; /* Assure un bon alignement */
+  height: 38px;
+  width: auto;
 }
 
-/* Styles pour les liens de navigation */
+.brand-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color, #212529);
+  letter-spacing: 0.2px;
+}
+
+.brand-accent {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+/* ===== NAV LINKS ===== */
 .nav-link {
-  color: var(--text-primary) !important;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-color, #495057) !important;
+  padding: 0.4rem 0.7rem !important;
+  border-radius: 8px;
+  transition: color 0.2s ease, background 0.2s ease;
+  position: relative;
 }
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 70%;
+  height: 2px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 2px;
+  transition: transform 0.25s ease;
+}
+
 .nav-link:hover {
-  color: var(--accent-color) !important;
+  color: #667eea !important;
+  background: rgba(102, 126, 234, 0.07);
 }
 
-/* Styles pour les dropdowns de palette (existants) */
-.dropdown-menu {
-  background-color: var(--background-alt-color);
-  border: 1px solid var(--border-color);
-  color: var(--text-color);
-}
-.dropdown-menu .dropdown-header,
-.dropdown-menu .dropdown-item {
-  color: var(--text-color) !important;
-}
-.dropdown-menu .dropdown-item:hover {
-  background-color: var(--border-color) !important;
-}
-.dropdown-menu .dropdown-divider {
-  border-top-color: var(--border-color);
+.nav-link:hover::after {
+  transform: translateX(-50%) scaleX(1);
 }
 
-.color-preview {
-  width: 20px;
-  height: 20px;
+/* ===== DARK MODE BUTTON ===== */
+.theme-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border-color, #dee2e6);
+  background: transparent;
+  color: var(--text-color, #495057);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.theme-toggle-btn:hover {
+  border-color: #667eea;
+  color: #667eea;
+  background: rgba(102, 126, 234, 0.07);
+}
+
+/* ===== MOBILE TOGGLER ===== */
+.toggler-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text-color, #495057);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  margin: 4px 0;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+/* ===== PALETTE MOBILE ===== */
+.palette-mobile-btn {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  border: 1px solid var(--border-color);
+  border: 1.5px solid var(--border-color, #dee2e6);
+  background: transparent;
+  color: var(--text-color, #495057);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
-.radix-light-preview { background-color: #F3D768; border-color: #d6b83f; }
-.radix-dark-preview { background-color: #AB6400; border-color: #7b4700; }
-.forest-preview { background-color: #2E8B57; border-color: #006400; }
-.ocean-preview { background-color: #4682B4; border-color: #191970; }
-.default-light-preview { background-color: #FFFFFF; border-color: #dee2e6; }
+
+.palette-mobile-btn:hover {
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.palette-dropdown {
+  background: var(--background-alt-color, #fff);
+  border: 1px solid var(--border-color, #e9ecef);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  padding: 8px;
+  min-width: 210px;
+}
+
+.palette-dropdown .dropdown-header {
+  color: var(--text-color, #6c757d);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.palette-dropdown .dropdown-item {
+  color: var(--text-color, #343a40);
+  border-radius: 8px;
+  font-size: 0.87rem;
+  font-weight: 500;
+  padding: 7px 10px;
+  transition: background 0.2s ease;
+}
+
+.palette-dropdown .dropdown-item:hover {
+  background: rgba(102, 126, 234, 0.08);
+  color: #667eea;
+}
+
+.palette-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: inline-block;
+}
 </style>

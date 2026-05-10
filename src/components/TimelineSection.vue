@@ -1,85 +1,179 @@
 <template>
   <section id="timeline" class="py-5 bg-white">
     <div class="container">
-      <h2 class="text-center mb-5 text-primary">Mon Parcours</h2>
-      <div class="row justify-content-center">
-        <div class="col-lg-8">
-          <div class="timeline">
-            <div 
-              v-for="(item, index) in timelineItems" 
-              :key="index" 
-              :class="['timeline-item', { 'left': index % 2 === 0, 'right': index % 2 !== 0 }]"
-            >
-              <div class="timeline-dot bg-primary"></div>
-              
-              <!-- FLIP CARD WRAPPER -->
-              <div class="flip-card-wrapper">
-                <div class="flip-card-container">
-                  <div class="flip-card-inner">
-                    
-                    <!-- FACE AVANT (Grise) -->
-                    <div class="flip-card-front card shadow-sm p-4">
-                      <h3 class="fs-5 text-primary">{{ item.title }}</h3>
-                      <p class="text-muted fw-bold mb-2 small">{{ item.date }}</p>
-                      <p class="text-muted fw-semibold mb-2 small">{{ item.ecole }}</p>
-                      <p class="text-dark small">{{ item.description }}</p>
+      <h2 class="text-center mb-4 text-primary">Mon Parcours</h2>
+      <p class="text-center text-muted mb-5">Formation et expérience professionnelle</p>
+
+      <div id="timelineCarousel" class="carousel slide" data-bs-ride="false">
+        <div class="carousel-indicators position-static mb-4">
+          <button type="button" data-bs-target="#timelineCarousel" data-bs-slide-to="0" class="active bg-primary" aria-current="true" aria-label="Parcours"></button>
+          <button type="button" data-bs-target="#timelineCarousel" data-bs-slide-to="1" class="bg-primary" aria-label="Expérience professionnelle"></button>
+        </div>
+
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="row justify-content-center">
+              <div class="col-lg-10">
+                <div class="timeline">
+                  <div 
+                    v-for="(item, index) in educationItems" 
+                    :key="index" 
+                    :class="['timeline-item', { 'left': index % 2 === 0, 'right': index % 2 !== 0 }]"
+                  >
+                    <div class="timeline-dot bg-primary"></div>
+                    <div class="flip-card-wrapper">
+                      <div class="flip-card-container">
+                        <div class="flip-card-inner">
+                          <div class="flip-card-front card shadow-sm p-4">
+                            <h3 class="fs-5 text-primary">{{ item.title }}</h3>
+                            <p class="text-muted fw-bold mb-2 small">{{ item.date }}</p>
+                            <p class="text-muted fw-semibold mb-2 small">{{ item.ecole }}</p>
+                            <p class="text-dark small">{{ item.description }}</p>
+                          </div>
+                          <div class="flip-card-back card shadow-sm p-4">
+                            <h3 class="fs-5 text-white mb-3">{{ item.title }}</h3>
+                            <p class="text-highlight fw-semibold mb-2 small">Points clés :</p>
+                            <ul class="text-highlight list-unstyled">
+                              <li v-for="point in item.points" :key="point" class="small mb-1">✓ {{ point }}</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    
-                    <!-- FACE ARRIÈRE (Colorée) -->
-                    <div class="flip-card-back card shadow-sm p-4">
-                      <h3 class="fs-5 text-white mb-3">{{ item.title }}</h3>
-                      <p class="text-highlight fw-semibold mb-2 small">Points clés :</p>
-                      <ul class="text-highlight list-unstyled">
-                        <li v-if="index === 0" class="small mb-1">✓ Architectures web et mobiles</li>
-                        <li v-if="index === 0" class="small mb-1">✓ Framework modernes (Vue, React)</li>
-                        <li v-if="index === 0" class="small mb-1">✓ Gestion de projet agile</li>
-                        
-                        <li v-if="index === 1" class="small mb-1">✓ HTML, CSS, JavaScript</li>
-                        <li v-if="index === 1" class="small mb-1">✓ Vue.js, React.js, Symfony</li>
-                        <li v-if="index === 1" class="small mb-1">✓ Projets personnels</li>
-                        
-                        <li v-if="index === 2" class="small mb-1">✓ Développement full-stack</li>
-                        <li v-if="index === 2" class="small mb-1">✓ Bases de données</li>
-                        <li v-if="index === 2" class="small mb-1">✓ Travail d'équipe</li>
-                      </ul>
-                    </div>
-                    
                   </div>
                 </div>
               </div>
-              
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="row justify-content-center">
+              <div class="col-lg-10">
+                <div class="timeline">
+                  <div 
+                    v-for="(item, index) in experienceItems" 
+                    :key="index" 
+                    :class="['timeline-item', { 'left': index % 2 === 0, 'right': index % 2 !== 0 }]"
+                  >
+                    <div class="timeline-dot bg-success"></div>
+                    <div class="flip-card-wrapper">
+                      <div class="flip-card-container">
+                        <div class="flip-card-inner">
+                          <div class="flip-card-front card shadow-sm p-4">
+                            <h3 class="fs-5 text-success">{{ item.title }}</h3>
+                            <p class="text-muted fw-bold mb-2 small">{{ item.date }}</p>
+                            <p class="text-muted fw-semibold mb-2 small">{{ item.company }}</p>
+                            <p class="text-dark small">{{ item.description }}</p>
+                          </div>
+                          <div class="flip-card-back card shadow-sm p-4 experience-back">
+                            <h3 class="fs-5 text-white mb-3">{{ item.title }}</h3>
+                            <p class="text-highlight fw-semibold mb-2 small">Missions / apports :</p>
+                            <ul class="text-highlight list-unstyled">
+                              <li v-for="point in item.points" :key="point" class="small mb-1">✓ {{ point }}</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
+        <button class="carousel-control-prev custom-carousel-control" type="button" data-bs-target="#timelineCarousel" data-bs-slide="prev">
+          <span class="custom-carousel-icon" aria-hidden="true">
+            <i class="fas fa-chevron-left"></i>
+          </span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next custom-carousel-control" type="button" data-bs-target="#timelineCarousel" data-bs-slide="next">
+          <span class="custom-carousel-icon" aria-hidden="true">
+            <i class="fas fa-chevron-right"></i>
+          </span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
     </div>
   </section>
 </template>
-
 
 <script>
 export default {
   name: 'TimelineSection',
   data() {
     return {
-      timelineItems: [
+      educationItems: [
         {
           title: "Licence Concepteur Développeur d'Applications",
           date: "Octobre 2025 - Septembre 2026 (Alternance)",
-          ecole: "Par Dawan Nantes",
-          description: "Formation axée sur la conception et le développement d'applications web et mobiles, incluant les bonnes pratiques de développement, l'architecture logicielle et la gestion de projet."
+          ecole: "Dawan Nantes",
+          description: "Formation axée sur la conception et le développement d'applications web et mobiles, incluant l'architecture logicielle, les bonnes pratiques et la gestion de projet.",
+          points: [
+            'Architecture web et mobile',
+            'Frameworks modernes (Vue, React)',
+            'Gestion de projet agile'
+          ]
         },
         {
-          title: "Formation developpeur web Front-End POE",
+          title: "Formation développeur web Front-End POE",
           date: "Avril 2025 - Juillet 2025",
           ecole: "Dawan Nantes",
-          description: "Apprentissage intensif des langages (HTML, CSS, JS, PHP) et des frameworks (Vue.js, React.js, Symfony) par la pratique et la réalisation de projets personnels."
+          description: "Apprentissage intensif des langages et frameworks à travers la pratique et la réalisation de projets concrets.",
+          points: [
+            'HTML, CSS, JavaScript, PHP',
+            'Vue.js, React.js, Symfony',
+            'Projets personnels et pratiques'
+          ]
         },
         {
-          title: "BTS SIO (Services Informatiques aux Organisations) option SLAM",
+          title: "BTS SIO option SLAM",
           date: "2021 - 2024",
           ecole: "ESUPEC Cholet",
-          description: "Etudes en initial, avec une spécialisation en développement d'applications et gestion de bases de données. Projets réalisés en équipe et stage en entreprise."
+          description: "Études en initial avec spécialisation en développement d'applications et gestion de bases de données.",
+          points: [
+            'Développement full-stack',
+            'Bases de données',
+            'Travail d’équipe'
+          ]
+        }
+      ],
+      experienceItems: [
+        {
+          title: "Développeur Fullstack en alternance",
+          date: "2025 - 2026",
+          company: "DAWAN - Nantes",
+          description: "Participation au développement et à l'amélioration d'un projet interne autour d'Angular, d'API et de Spring Boot.",
+          points: [
+            'Débogage et correction d’erreurs',
+            'Développement de nouvelles fonctionnalités',
+            'Amélioration du site et mise en place du RGPD',
+            'Réunions d’équipe quotidiennes'
+          ]
+        },
+        {
+          title: "Développeur d'applications - Stage",
+          date: "Mai - Juin 2023 / Janvier - Février 2024",
+          company: "A3Multimedia - Cholet",
+          description: "Développement d'une application de gestion des stocks Desktop / Mobile avec WinDev et WinDev Mobile.",
+          points: [
+            'Développement WinDev et WinDev Mobile',
+            'Scan produit sur mobile',
+            'Refonte UX/UI et amélioration de l’ergonomie',
+            'Intégration de modules IA internes'
+          ]
+        },
+        {
+          title: "Jobs étudiants",
+          date: "2022 - 2024",
+          company: "Lidl puis Leclerc",
+          description: "Expériences professionnelles complémentaires en grande distribution.",
+          points: [
+            'Autonomie et adaptabilité',
+            'Travail en équipe',
+            'Gestion du rythme et du relationnel client'
+          ]
         }
       ]
     };
@@ -87,9 +181,7 @@ export default {
 };
 </script>
 
-
 <style scoped>
-/* ========== TIMELINE PRINCIPALE ========== */
 .timeline {
   position: relative;
   padding: 40px 0;
@@ -128,7 +220,6 @@ export default {
   text-align: left;
 }
 
-/* ========== DOT CENTRAL ========== */
 .timeline-dot {
   position: absolute;
   width: 20px;
@@ -157,7 +248,6 @@ export default {
   box-shadow: 0 0 0 6px #667eea;
 }
 
-/* ========== FLIP CARD ANIMATION ========== */
 .flip-card-wrapper {
   perspective: 1000px;
   width: 100%;
@@ -189,7 +279,6 @@ export default {
   border-radius: 0.375rem;
 }
 
-/* Face avant (grise - style original) */
 .flip-card-front {
   background-color: #f8f9fa;
   transform: rotateY(0deg);
@@ -199,7 +288,6 @@ export default {
   display: block;
 }
 
-/* Face arrière (colorée) */
 .flip-card-back {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
@@ -212,6 +300,11 @@ export default {
   top: 0;
   left: 0;
   right: 0;
+}
+
+.experience-back {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  border-color: #11998e;
 }
 
 .flip-card-front h3,
@@ -244,13 +337,11 @@ export default {
   margin-bottom: 0.3rem;
 }
 
-/* Couleur highlight pour meilleure lisibilité */
 .text-highlight {
   color: #f0f4ff !important;
   font-weight: 500;
 }
 
-/* ========== POINTE DE FLÈCHE (adaptée au flip) ========== */
 .flip-card-front::after,
 .flip-card-back::after {
   position: absolute;
@@ -261,7 +352,6 @@ export default {
   content: '';
 }
 
-/* Pointe pour items à gauche */
 .timeline-item.left .flip-card-front::after {
   border-width: 10px 0 10px 10px;
   border-color: transparent transparent transparent #f8f9fa;
@@ -274,7 +364,6 @@ export default {
   right: -10px;
 }
 
-/* Pointe pour items à droite */
 .timeline-item.right .flip-card-front::after {
   border-width: 10px 10px 10px 0;
   border-color: transparent #f8f9fa transparent transparent;
@@ -287,7 +376,12 @@ export default {
   left: -10px;
 }
 
-/* ========== RESPONSIVE ========== */
+.carousel-indicators button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
 @media (max-width: 768px) {
   .timeline::after {
     left: 20px;
@@ -341,5 +435,48 @@ export default {
   .flip-card-back ul li {
     font-size: 0.8rem;
   }
+}
+.custom-carousel-control {
+  width: 56px;
+  height: 56px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 1;
+}
+
+.custom-carousel-control:hover {
+  opacity: 1;
+}
+
+.custom-carousel-control:focus {
+  box-shadow: none;
+}
+
+.custom-carousel-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  font-size: 1.2rem;
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  transition: all 0.25s ease;
+}
+
+.custom-carousel-control:hover .custom-carousel-icon {
+  transform: scale(1.08);
+  box-shadow: 0 10px 24px rgba(102, 126, 234, 0.5);
+}
+
+.carousel-control-prev {
+  left: -10px;
+}
+
+.carousel-control-next {
+  right: -10px;
 }
 </style>
