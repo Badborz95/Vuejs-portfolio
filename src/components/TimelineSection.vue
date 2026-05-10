@@ -36,7 +36,7 @@
                             <h3 class="fs-6 fw-bold text-white mb-2">{{ item.title }}</h3>
                             <p class="text-highlight fw-semibold mb-2 small">Points cles :</p>
                             <ul class="text-highlight list-unstyled mb-0">
-                              <li v-for="point in item.points" :key="point" class="small mb-1">checkmark {{ point }}</li>
+                              <li v-for="point in item.points" :key="point" class="small mb-1">✓ {{ point }}</li>
                             </ul>
                           </div>
                         </div>
