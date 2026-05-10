@@ -1,5 +1,6 @@
 <template>
-  <div id="portfolio-page">
+  <Loader v-if="isLoading" :targetProgress="loaderProgress" />
+  <div v-else id="portfolio-page">
     <Header @set-header-mode="updateHeaderMode" />
     <HeroSection />
     <AboutSection />
@@ -23,6 +24,7 @@ import ContactSection from './components/ContactSection.vue';
 import ScrollToTopButton from './components/ScrollToTopButton.vue';
 import Footer from './components/Footer.vue';
 import ThemeSelector from './components/ThemeSelector.vue';
+import Loader from './components/Loader.vue';
 import VisitorCounter from './components/VisitorCounter.vue';
 
 export default {
@@ -37,7 +39,28 @@ export default {
     ScrollToTopButton,
     Footer,
     ThemeSelector,
+    Loader,
     VisitorCounter
+  },
+  data() {
+    return {
+      isLoading: true,
+      loaderProgress: 90
+    };
+  },
+  mounted() {
+    const minDelay = new Promise(resolve => setTimeout(resolve, 1500));
+    const pageLoad = new Promise(resolve => {
+      if (document.readyState === 'complete') resolve();
+      else window.addEventListener('load', resolve, { once: true });
+    });
+
+    Promise.all([minDelay, pageLoad]).then(() => {
+      this.loaderProgress = 100;
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 1000);
+    });
   },
   methods: {
     updateHeaderMode(isDark) {},
