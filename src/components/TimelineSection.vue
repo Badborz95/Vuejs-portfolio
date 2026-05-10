@@ -73,7 +73,7 @@
                             <h3 class="fs-6 fw-bold text-white mb-2">{{ item.title }}</h3>
                             <p class="text-highlight fw-semibold mb-2 small">Missions / apports :</p>
                             <ul class="text-highlight list-unstyled mb-0">
-                              <li v-for="point in item.points" :key="point" class="small mb-1">checkmark {{ point }}</li>
+                              <li v-for="point in item.points" :key="point" class="small mb-1">✓ {{ point }}</li>
                             </ul>
                           </div>
                         </div>
@@ -372,16 +372,21 @@ export default {
     text-align: left !important;
     flex-direction: row !important;
     margin-bottom: 24px;
+    padding-top:0 !important;
   }
 
   /* Dot sur la ligne gauche */
   .timeline-item .timeline-dot,
   .timeline-item.left .timeline-dot,
   .timeline-item.right .timeline-dot {
-    left: 8px !important;
+    position: absolute !important;
+    left: 9px !important;  
     right: auto !important;
-    top: 18px;
-    width: 16px; height: 16px;
+    top: 14px !important;  
+    width: 16px !important;
+    height: 16px !important;
+    margin: 0 !important;
+    transform: none !important;
   }
 
   /* Cacher fleches deco */
