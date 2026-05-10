@@ -1,10 +1,10 @@
 const { Redis } = require("@upstash/redis");
 
-const redis = Redis.fromEnv();
-
 exports.handler = async () => {
   try {
+    const redis = Redis.fromEnv();
     const count = await redis.incr("portfolio:visits");
+
     return {
       statusCode: 200,
       headers: {
@@ -14,10 +14,17 @@ exports.handler = async () => {
       body: JSON.stringify({ count }),
     };
   } catch (error) {
+    console.error("Visitor counter error:", error);
+
     return {
       statusCode: 500,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ error: "Unable to update counter" }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        error: "Unable to update counter",
+        details: error.message,
+      }),
     };
   }
 };
