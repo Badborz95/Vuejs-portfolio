@@ -85,15 +85,32 @@
             </div>
           </div>
         </div>
+          <!-- Boutons de navigation en bas sur mobile -->
+          <div class="carousel-nav-bottom">
+          <!-- Bouton précédent (caché si on est sur le 1er slide) -->
+          <button
+            v-if="activeSlide > 0"
+            class="carousel-nav-btn"
+            type="button"
+            data-bs-target="#timelineCarousel"
+            data-bs-slide="prev"
+          >
+            <i class="fas fa-chevron-left me-2"></i>
+            {{ activeSlide === 1 ? 'Formation' : 'Expérience' }}
+          </button>
 
-        <button class="carousel-control-prev custom-carousel-control" type="button" data-bs-target="#timelineCarousel" data-bs-slide="prev">
-          <span class="custom-carousel-icon" aria-hidden="true"><i class="fas fa-chevron-left"></i></span>
-          <span class="visually-hidden">Precedent</span>
-        </button>
-        <button class="carousel-control-next custom-carousel-control" type="button" data-bs-target="#timelineCarousel" data-bs-slide="next">
-          <span class="custom-carousel-icon" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
-          <span class="visually-hidden">Suivant</span>
-        </button>
+          <!-- Bouton suivant (caché si on est sur le dernier slide) -->
+          <button
+            v-if="activeSlide < 1"
+            class="carousel-nav-btn carousel-nav-btn--next"
+            type="button"
+            data-bs-target="#timelineCarousel"
+            data-bs-slide="next"
+          >
+            {{ activeSlide === 0 ? 'Expérience' : 'Formation' }}
+            <i class="fas fa-chevron-right ms-2"></i>
+          </button>
+        </div>
       </div>
     </div>
   </section>
@@ -104,6 +121,7 @@ export default {
   name: 'TimelineSection',
   data() {
     return {
+      activeSlide: 0,
       flipped: { edu: {}, exp: {} },
       educationItems: [
         {
@@ -152,6 +170,15 @@ export default {
         }
       ]
     };
+  },
+  mounted() {
+    // Écouter les changements de slide Bootstrap
+    const carousel = document.getElementById('timelineCarousel');
+    if (carousel) {
+      carousel.addEventListener('slid.bs.carousel', (e) => {
+        this.activeSlide = e.to;
+      });
+    }
   },
   methods: {
     toggleFlip(type, index) {
@@ -282,22 +309,49 @@ export default {
 
 /* ===== CAROUSEL ===== */
 .carousel-indicators button { width: 12px; height: 12px; border-radius: 50%; }
+.custom-carousel-control:hover .custom-carousel-icon { transform: scale(1.08); }
+/* ===== NAVIGATION BAS ===== */
+.carousel-nav-bottom {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 1.5rem;
+  padding: 0 8px;
+}
 
-.custom-carousel-control { width: 48px; height: 48px; top: 50%; transform: translateY(-50%); opacity: 1; }
-
-.custom-carousel-icon {
-  width: 48px; height: 48px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 50%;
+.carousel-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 22px;
+  border-radius: 50px;
   background: linear-gradient(135deg, #667eea, #764ba2);
-  color: #fff; font-size: 1rem;
-  box-shadow: 0 6px 18px rgba(102,126,234,0.35);
-  border: 2px solid rgba(255,255,255,0.6);
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(102,126,234,0.35);
   transition: all 0.25s ease;
 }
-.custom-carousel-control:hover .custom-carousel-icon { transform: scale(1.08); }
-.carousel-control-prev { left: -8px; }
-.carousel-control-next { right: -8px; }
+
+.carousel-nav-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102,126,234,0.45);
+}
+
+/* Sur mobile : boutons plus compacts */
+@media (max-width: 767px) {
+  .carousel-nav-bottom {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .carousel-nav-btn {
+    padding: 9px 16px;
+    font-size: 0.82rem;
+  }
+}
 
 /* ===================================================== */
 /* RESPONSIVE MOBILE <= 767px                            */
