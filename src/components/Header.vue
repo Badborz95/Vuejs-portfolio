@@ -3,9 +3,13 @@
     <div class="container">
 
       <!-- Brand -->
-      <a class="navbar-brand d-flex align-items-center gap-2" href="#hero">
-        <img :src="headerLogo" alt="Logo Turpal" class="navbar-logo">
-        <span class="brand-text">Turpal <span class="brand-accent">DJABRAILOV</span></span>
+      <a class="navbar-brand d-flex align-items-center" href="#hero">
+        <img
+          :src="isDarkMode ? darkLogo : lightLogo"
+          alt="Logo de Djabrailov Turpal"
+          class="navbar-logo me-2"
+        />
+        <span class="fw-bold">Djabrailov Turpal</span>
       </a>
 
       <!-- Toggler mobile -->
@@ -63,15 +67,14 @@
 </template>
 
 <script>
-import headerLogo from '/img/Logo-head.png';
-
 export default {
   name: 'Header',
   data() {
     return {
       isDarkMode: false,
       isScrolled: false,
-      headerLogo,
+      darkLogo: '/img/logoTDLight.png',
+      lightLogo: '/img/logoTDDark.png',
       navLinks: [
         { href: '#hero',     label: 'Accueil' },
         { href: '#about',    label: 'À Propos' },
