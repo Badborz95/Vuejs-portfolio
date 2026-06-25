@@ -19,7 +19,7 @@
                 <h3 class="profile-name">Turpal DJABRAILOV</h3>
                 <p class="profile-role">
                   <i class="fas fa-graduation-cap me-1"></i>
-                  Ingénieur Informatique Expérience Interactive — CNAM ENJMIN
+                  Ingénieur Informatique Intelligence Artificielle — CNAM Niort
                 </p>
               </div>
             </div>
@@ -27,7 +27,7 @@
               Développeur web passionné,
               actuellement en <strong>Licence Concepteur Développeur d'Applications</strong> en apprentissage
               chez <strong>Dawan (Nantes)</strong>. Je suis également admis en
-              <strong>Ingénieur Informatique Expérience Interactive</strong> au CNAM ENJMIN pour la prochaine rentrée.
+              <strong>Ingénieur Informatique Intelligence Artificielle</strong> au CNAM Niort pour la prochaine rentrée.
             </p>
             <p class="about-text mb-3">
               Fort d'une maîtrise de <strong>HTML, CSS, JavaScript et TypeScript</strong>, je suis à l'aise avec

@@ -20,10 +20,10 @@
 
       <!-- Sous-titre -->
       <p class="hero-subtitle mb-2">
-        Développeur Full-Stack · Futur Ingénieur Informatique Expérience Interactive
+        Développeur · Futur Ingénieur Informatique Intelligence Artificielle
       </p>
       <p class="hero-school mb-4">
-        <i class="fas fa-graduation-cap me-1"></i> CNAM ENJMIN — Apprentissage
+        <i class="fas fa-graduation-cap me-1"></i> CNAM Niort — Apprentissage
       </p>
 
       <!-- Réseaux sociaux -->

@@ -79,7 +79,7 @@
             <div class="availability-dot"></div>
             <h4 class="availability-title">Disponible en alternance</h4>
             <p class="availability-text">
-              Je recherche activement une alternance pour ma formation d'Ingénieur au CNAM ENJMIN
+              Je recherche activement une alternance pour ma formation d'Ingénieur au CNAM Niort
               à partir de la prochaine rentrée.
             </p>
             <div class="availability-tags">
