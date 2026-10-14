@@ -7,8 +7,6 @@
       </div>
 
       <div class="row g-4 align-items-stretch">
-
-        <!-- Profil -->
         <div class="col-lg-7">
           <div class="about-card h-100 p-4 p-md-5">
             <div class="profile-header mb-4">
@@ -19,72 +17,100 @@
                 <h3 class="profile-name">Turpal DJABRAILOV</h3>
                 <p class="profile-role">
                   <i class="fas fa-graduation-cap me-1"></i>
-                  Ingénieur Informatique Intelligence Artificielle — CNAM Niort
+                  Mastère Big Data & IA - SUP DE VINCI Nantes
                 </p>
               </div>
             </div>
+
             <p class="about-text mb-3">
-              Développeur web passionné,
-              actuellement en <strong>Licence Concepteur Développeur d'Applications</strong> en apprentissage
-              chez <strong>Dawan (Nantes)</strong>. Je suis également admis en
-              <strong>Ingénieur Informatique Intelligence Artificielle</strong> au CNAM Niort pour la prochaine rentrée.
+              Développeur web passionné, actuellement en
+              <strong>Mastère Big Data & IA chez Sup de Vinci Nantes</strong>.
+              J’aime concevoir des interfaces claires, des expériences fluides et des applications robustes,
+              tout en développant mes compétences autour de la donnée et de l’intelligence artificielle.
             </p>
+
             <p class="about-text mb-3">
-              Fort d'une maîtrise de <strong>HTML, CSS, JavaScript et TypeScript</strong>, je suis à l'aise avec
-              des frameworks modernes comme <strong>Vue.js, React.js, Angular et Symfony</strong>.
-              Mon objectif est de concevoir des applications web robustes, intuitives et performantes.
+              J’ai travaillé avec <strong>Vue.js, React.js, Angular, Symfony, JavaScript, TypeScript</strong>,
+              ainsi qu’avec <strong>Java, Spring Boot</strong> et des <strong>API REST</strong>.
+              J’utilise aussi <strong>Python</strong> et <strong>SQL</strong> pour relier le développement web
+              aux besoins data et aux cas d’usage IA.
             </p>
+
             <p class="about-text">
-              Rigoureux et curieux, je travaille aussi bien en autonomie qu'en équipe et je cherche activement
-              une <strong>alternance partout en France</strong>, avec une préférence pour les régions
-              <strong>Pays de la Loire</strong> et <strong>Nouvelle-Aquitaine</strong>.
+              Rigoureux, curieux et polyvalent, je recherche une alternance en France entière,
+              avec une préférence pour les régions <strong>Pays de la Loire</strong>, <strong>Rhône-Alpes</strong> et
+              <strong>Nouvelle-Aquitaine</strong>.
             </p>
+
             <div class="about-highlights">
-            <div class="highlight-item">
-              <i class="fas fa-map-marker-alt"></i>
-              <span>Pays de la Loire · Nouvelle-Aquitaine (priorité)</span>
+              <div class="highlight-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Pays de la Loire · Nouvelle-Aquitaine · Rhône-Alpes (priorité)</span>
+              </div>
+              <div class="highlight-item">
+                <i class="fas fa-briefcase"></i>
+                <span>En recherche d'alternance — France entière</span>
+              </div>
+              <div class="highlight-item">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Mastère Big Data & IA — Sup de Vinci Nantes</span>
+              </div>
+              <div class="highlight-item">
+                <i class="fas fa-language"></i>
+                <span>Français, Anglais, Russe, Polonais</span>
+              </div>
             </div>
-            <div class="highlight-item">
-              <i class="fas fa-briefcase"></i>
-              <span>En recherche d'alternance — France entière</span>
-            </div>
-            <div class="highlight-item">
-              <i class="fas fa-graduation-cap"></i>
-              <span>Actuellement en apprentissage — Dawan Nantes</span>
-            </div>
-            <div class="highlight-item">
-              <i class="fas fa-language"></i>
-              <span>Français, Anglais, Russe</span>
-            </div>
-          </div>
           </div>
         </div>
 
-        <!-- Compétences + Soft Skills -->
         <div class="col-lg-5 d-flex flex-column gap-4">
-
           <div class="about-card p-4">
             <h3 class="card-section-title mb-3">
-              <span class="card-title-icon icon-tech"><i class="fas fa-code"></i></span>
-              Compétences clés
-            </h3>
-            <div class="d-flex flex-wrap gap-2">
-              <span v-for="skill in techSkills" :key="skill" class="badge-tech">{{ skill }}</span>
-            </div>
-          </div>
-
-          <div class="about-card p-4">
-            <h3 class="card-section-title mb-3">
-              <span class="card-title-icon icon-soft"><i class="fas fa-heart"></i></span>
-              Qualités personnelles
-            </h3>
-            <div class="d-flex flex-wrap gap-2">
-              <span v-for="skill in softSkills" :key="skill" class="badge-soft">
-                <i class="fas fa-check-circle me-1"></i>{{ skill }}
+              <span class="card-title-icon icon-web">
+                <i class="fas fa-code"></i>
               </span>
+              Compétences web
+            </h3>
+            <div class="d-flex flex-wrap gap-2">
+              <span v-for="skill in webSkills" :key="skill" class="badge-tech">{{ skill }}</span>
             </div>
           </div>
 
+          <div class="about-card p-4">
+            <h3 class="card-section-title mb-3">
+              <span class="card-title-icon icon-backend">
+                <i class="fas fa-server"></i>
+              </span>
+              Compétences backend
+            </h3>
+            <div class="d-flex flex-wrap gap-2">
+              <span v-for="skill in backendSkills" :key="skill" class="badge-backend">{{ skill }}</span>
+            </div>
+          </div>
+
+          <div class="about-card p-4">
+            <h3 class="card-section-title mb-3">
+              <span class="card-title-icon icon-data">
+                <i class="fas fa-database"></i>
+              </span>
+              Compétences data
+            </h3>
+            <div class="d-flex flex-wrap gap-2">
+              <span v-for="skill in dataSkills" :key="skill" class="badge-data">{{ skill }}</span>
+            </div>
+          </div>
+
+          <div class="about-card p-4">
+            <h3 class="card-section-title mb-3">
+              <span class="card-title-icon icon-soft">
+                <i class="fas fa-heart"></i>
+              </span>
+              Méthodes de travail
+            </h3>
+            <div class="d-flex flex-wrap gap-2">
+              <span v-for="skill in workMethods" :key="skill" class="badge-soft">{{ skill }}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -96,15 +122,41 @@ export default {
   name: 'AboutSection',
   data() {
     return {
-      techSkills: [
-        'Vue.js', 'Angular', 'React.js', 'Spring Boot', 'Symfony',
-        'Java', 'TypeScript', 'JavaScript', 'HTML / CSS', 'PHP',
-        'SQL', 'Git', 'Bootstrap', 'Tailwind CSS', 'Node.js', 'C++', 'Python'
+      webSkills: [
+        'Vue.js',
+        'React.js',
+        'Angular',
+        'Symfony',
+        'TypeScript',
+        'JavaScript',
+        'HTML / CSS',
+        'Bootstrap',
+        'Tailwind CSS',
+        'Git'
       ],
-      softSkills: [
-        'Autonomie', "Esprit d'équipe", 'Curiosité', 'Rigueur',
-        'Adaptabilité', "Esprit d'analyse", 'Communication',
-        'Sens du détail', 'Polyvalence'
+      backendSkills: [
+        'Java',
+        'Spring Boot',
+        'REST APIs',
+        'PHP',
+        'Node.js'
+      ],
+      dataSkills: [
+        'Python',
+        'SQL',
+        'Big Data',
+        'IA',
+        'Machine Learning',
+        'ETL'
+      ],
+      workMethods: [
+        'Agile',
+        'Scrum',
+        'Autonomie',
+        "Esprit d'équipe",
+        'Curiosité',
+        'Rigueur',
+        'Adaptabilité'
       ]
     };
   }
@@ -116,7 +168,9 @@ export default {
   background: var(--background-color, #f8f9fa);
 }
 
-.section-header { position: relative; }
+.section-header {
+  position: relative;
+}
 
 .section-title {
   font-weight: 700;
@@ -133,7 +187,6 @@ export default {
   margin: 0 auto;
 }
 
-/* ===== CARTE ===== */
 .about-card {
   background: var(--background-alt-color, #ffffff);
   border: 1px solid var(--border-color, #e9ecef);
@@ -147,7 +200,6 @@ export default {
   transform: translateY(-2px);
 }
 
-/* ===== PROFIL HEADER ===== */
 .profile-header {
   display: flex;
   align-items: center;
@@ -182,14 +234,12 @@ export default {
   margin: 0;
 }
 
-/* ===== TEXTE ===== */
 .about-text {
   color: var(--text-color, #495057);
   line-height: 1.75;
   font-size: 0.95rem;
 }
 
-/* ===== HIGHLIGHTS ===== */
 .about-highlights {
   display: flex;
   flex-wrap: wrap;
@@ -212,7 +262,6 @@ export default {
   font-size: 0.8rem;
 }
 
-/* ===== TITRE CARD ===== */
 .card-section-title {
   font-size: 0.95rem;
   font-weight: 700;
@@ -234,9 +283,19 @@ export default {
   flex-shrink: 0;
 }
 
-.icon-tech {
+.icon-web {
   background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(118,75,162,0.15));
   color: #667eea;
+}
+
+.icon-backend {
+  background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(37,99,235,0.15));
+  color: #3b82f6;
+}
+
+.icon-data {
+  background: linear-gradient(135deg, rgba(46,204,113,0.15), rgba(39,174,96,0.15));
+  color: #2ecc71;
 }
 
 .icon-soft {
@@ -244,25 +303,9 @@ export default {
   color: #e95d8a;
 }
 
-/* ===== BADGES ===== */
-.badge-tech {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  background: linear-gradient(135deg, rgba(102,126,234,0.10), rgba(118,75,162,0.10));
-  color: #5a67d8;
-  border: 1px solid rgba(102,126,234,0.22);
-  transition: all 0.2s ease;
-}
-
-.badge-tech:hover {
-  background: linear-gradient(135deg, rgba(102,126,234,0.20), rgba(118,75,162,0.20));
-  transform: translateY(-1px);
-  box-shadow: 0 3px 8px rgba(102,126,234,0.18);
-}
-
+.badge-tech,
+.badge-backend,
+.badge-data,
 .badge-soft {
   display: inline-flex;
   align-items: center;
@@ -270,17 +313,48 @@ export default {
   border-radius: 20px;
   font-size: 0.8rem;
   font-weight: 500;
-  background: linear-gradient(135deg, rgba(233,93,138,0.09), rgba(255,140,80,0.09));
-  color: #c2486b;
-  border: 1px solid rgba(233,93,138,0.22);
   transition: all 0.2s ease;
 }
 
-.badge-soft:hover {
-  background: linear-gradient(135deg, rgba(233,93,138,0.18), rgba(255,140,80,0.18));
-  transform: translateY(-1px);
-  box-shadow: 0 3px 8px rgba(233,93,138,0.15);
+.badge-tech {
+  background: linear-gradient(135deg, rgba(102,126,234,0.10), rgba(118,75,162,0.10));
+  color: #5a67d8;
+  border: 1px solid rgba(102,126,234,0.22);
 }
 
-.badge-soft .fas { font-size: 0.7rem; opacity: 0.8; }
+.badge-backend {
+  background: linear-gradient(135deg, rgba(59,130,246,0.10), rgba(37,99,235,0.10));
+  color: #2563eb;
+  border: 1px solid rgba(59,130,246,0.22);
+}
+
+.badge-data {
+  background: linear-gradient(135deg, rgba(46,204,113,0.10), rgba(39,174,96,0.10));
+  color: #1f8a4c;
+  border: 1px solid rgba(46,204,113,0.22);
+}
+
+.badge-soft {
+  background: linear-gradient(135deg, rgba(233,93,138,0.09), rgba(255,140,80,0.09));
+  color: #c2486b;
+  border: 1px solid rgba(233,93,138,0.22);
+}
+
+.badge-tech:hover,
+.badge-backend:hover,
+.badge-data:hover,
+.badge-soft:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(102, 126, 234, 0.12);
+}
+
+@media (max-width: 575.98px) {
+  .profile-header {
+    align-items: flex-start;
+  }
+
+  .about-highlights {
+    flex-direction: column;
+  }
+}
 </style>

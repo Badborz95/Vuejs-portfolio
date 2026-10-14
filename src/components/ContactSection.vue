@@ -1,7 +1,6 @@
 <template>
   <section id="contact" class="py-5 contact-section">
     <div class="container">
-
       <div class="section-header text-center mb-5">
         <h2 class="section-title">Me Contacter</h2>
         <div class="section-underline"></div>
@@ -12,8 +11,6 @@
       </div>
 
       <div class="row justify-content-center g-4">
-
-        <!-- Carte principale -->
         <div class="col-lg-5">
           <div class="contact-card h-100 p-4 p-md-5">
             <h3 class="contact-card-title mb-4">
@@ -38,7 +35,12 @@
               </div>
               <div>
                 <p class="contact-label">LinkedIn</p>
-                <a href="https://www.linkedin.com/in/djabrailovturpal/" target="_blank" class="contact-link">
+                <a
+                  href="https://www.linkedin.com/in/djabrailovturpal/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="contact-link"
+                >
                   linkedin.com/in/djabrailovturpal
                 </a>
               </div>
@@ -50,7 +52,12 @@
               </div>
               <div>
                 <p class="contact-label">GitHub</p>
-                <a href="https://github.com/Badborz95" target="_blank" class="contact-link">
+                <a
+                  href="https://github.com/Badborz95"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="contact-link"
+                >
                   github.com/Badborz95
                 </a>
               </div>
@@ -62,43 +69,45 @@
               </div>
               <div>
                 <p class="contact-label">Mobilité</p>
-                <p class="contact-value">France entière<br>
-                  <span class="location-pref">Préférence : Pays de la Loire · Nouvelle-Aquitaine</span>
+                <p class="contact-value">
+                  France entière<br>
+                  <span class="location-pref">Préférence : Pays de la Loire · Nouvelle-Aquitaine · Rhône-Alpes</span>
                 </p>
               </div>
             </div>
-
           </div>
         </div>
 
-        <!-- Carte disponibilité + CV -->
         <div class="col-lg-4 d-flex flex-column gap-4">
-
-          <!-- Badge disponibilité -->
           <div class="contact-card p-4 text-center availability-card">
             <div class="availability-dot"></div>
             <h4 class="availability-title">Disponible en alternance</h4>
             <p class="availability-text">
-              Je recherche activement une alternance pour ma formation d'Ingénieur au CNAM Niort
-              à partir de la prochaine rentrée.
+              Je recherche activement une alternance en lien avec mon Mastère Big Data & IA
+              à Sup de Vinci Nantes.
             </p>
             <div class="availability-tags">
               <span class="avail-tag"><i class="fas fa-map-pin me-1"></i>Pays de la Loire</span>
               <span class="avail-tag"><i class="fas fa-map-pin me-1"></i>Nouvelle-Aquitaine</span>
+              <span class="avail-tag"><i class="fas fa-map-pin me-1"></i>Rhône-Alpes</span>
               <span class="avail-tag avail-tag-light"><i class="fas fa-globe me-1"></i>France entière</span>
             </div>
           </div>
 
-          <!-- Télécharger CV -->
           <div class="contact-card p-4 text-center cv-card">
             <i class="fas fa-file-pdf cv-icon mb-3"></i>
             <h4 class="cv-title">Mon CV</h4>
-            <p class="cv-text">Télécharge mon CV pour découvrir mon parcours complet.</p>
-            <a href="/doc/Turpal-CV.pdf" download="Turpal-CV.pdf" class="cv-btn">
-              <i class="fas fa-download me-2"></i>Télécharger le CV
-            </a>
-          </div>
+            <p class="cv-text">Télécharge mes CV pour découvrir mon parcours complet.</p>
 
+            <div class="cv-buttons">
+              <a href="/doc/Turpal-CV-Data-IA.pdf" download="Turpal-CV-Data-IA.pdf" class="cv-btn">
+                <i class="fas fa-download me-2"></i>Télécharger le CV - Data & IA
+              </a>
+              <a href="/doc/Turpal-CV-Fullstack.pdf" download="Turpal-CV-Fullstack.pdf" class="cv-btn">
+                <i class="fas fa-download me-2"></i>Télécharger le CV - Fullstack
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -116,7 +125,6 @@ export default {
   background: var(--background-color, #f8f9fa);
 }
 
-/* ===== HEADER ===== */
 .section-title {
   font-weight: 700;
   font-size: 1.9rem;
@@ -138,7 +146,6 @@ export default {
   line-height: 1.7;
 }
 
-/* ===== CARTES ===== */
 .contact-card {
   background: var(--background-alt-color, #ffffff);
   border: 1px solid var(--border-color, #e9ecef);
@@ -160,9 +167,10 @@ export default {
   align-items: center;
 }
 
-.contact-card-title i { color: #667eea; }
+.contact-card-title i {
+  color: #667eea;
+}
 
-/* ===== ITEMS CONTACT ===== */
 .contact-item {
   display: flex;
   align-items: flex-start;
@@ -171,7 +179,9 @@ export default {
   border-bottom: 1px solid var(--border-color, #f1f3f5);
 }
 
-.contact-item:last-child { border-bottom: none; }
+.contact-item:last-child {
+  border-bottom: none;
+}
 
 .contact-icon-wrap {
   width: 40px;
@@ -185,10 +195,21 @@ export default {
   color: #fff;
 }
 
-.icon-email    { background: linear-gradient(135deg, #667eea, #764ba2); }
-.icon-linkedin { background: linear-gradient(135deg, #0077b5, #005885); }
-.icon-github   { background: linear-gradient(135deg, #24292e, #444d56); }
-.icon-location { background: linear-gradient(135deg, #e95d8a, #ff8c50); }
+.icon-email {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.icon-linkedin {
+  background: linear-gradient(135deg, #0077b5, #005885);
+}
+
+.icon-github {
+  background: linear-gradient(135deg, #24292e, #444d56);
+}
+
+.icon-location {
+  background: linear-gradient(135deg, #e95d8a, #ff8c50);
+}
 
 .contact-label {
   font-size: 0.75rem;
@@ -208,7 +229,10 @@ export default {
   word-break: break-all;
 }
 
-.contact-link:hover { color: #667eea; text-decoration: underline; }
+.contact-link:hover {
+  color: #667eea;
+  text-decoration: underline;
+}
 
 .contact-value {
   font-size: 0.88rem;
@@ -224,8 +248,9 @@ export default {
   font-weight: 500;
 }
 
-/* ===== DISPONIBILITÉ ===== */
-.availability-card { border-top: 3px solid #22c55e; }
+.availability-card {
+  border-top: 3px solid #22c55e;
+}
 
 .availability-dot {
   width: 12px;
@@ -239,7 +264,7 @@ export default {
 
 @keyframes pulse-green {
   0%, 100% { box-shadow: 0 0 0 4px rgba(34,197,94,0.2); }
-  50%       { box-shadow: 0 0 0 8px rgba(34,197,94,0.08); }
+  50% { box-shadow: 0 0 0 8px rgba(34,197,94,0.08); }
 }
 
 .availability-title {
@@ -279,8 +304,9 @@ export default {
   border-color: rgba(100,116,139,0.2);
 }
 
-/* ===== CV ===== */
-.cv-card { border-top: 3px solid #667eea; }
+.cv-card {
+  border-top: 3px solid #667eea;
+}
 
 .cv-icon {
   font-size: 2.2rem;
@@ -301,9 +327,19 @@ export default {
   margin-bottom: 1rem;
 }
 
+.cv-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+  margin-top: 1rem;
+}
+
 .cv-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  width: 100%;
   padding: 10px 22px;
   border-radius: 25px;
   background: linear-gradient(135deg, #667eea, #764ba2);
@@ -320,5 +356,15 @@ export default {
   transform: translateY(-2px);
   box-shadow: 0 8px 22px rgba(102,126,234,0.42);
   color: #fff;
+}
+
+@media (min-width: 768px) {
+  .cv-buttons {
+    flex-direction: row;
+  }
+
+  .cv-btn {
+    flex: 1;
+  }
 }
 </style>

@@ -9,7 +9,7 @@
             <p class="footer-name">Turpal <span class="footer-name-accent">DJABRAILOV</span></p>
             <p class="footer-role">
               <i class="fas fa-code me-1"></i>
-              Développeur Full-Stack · Apprenti CNAM ENJMIN
+              Développeur Full-Stack · Étudiant chez SUP DE VINCI Nantes
             </p>
           </div>
 

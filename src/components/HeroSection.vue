@@ -1,32 +1,26 @@
 <template>
   <section id="hero" class="hero-section d-flex align-items-center justify-content-center">
-    <!-- Fond décoratif -->
     <div class="hero-bg-orb orb-1"></div>
     <div class="hero-bg-orb orb-2"></div>
 
     <div class="container text-center hero-content">
-
-      <!-- Photo -->
       <div class="hero-avatar-wrapper mb-4">
         <img src="/img/hero.jpg" alt="Turpal DJABRAILOV" class="hero-avatar">
         <div class="hero-avatar-ring"></div>
-        <span class="hero-status-dot" title="Disponible en apprentissage"></span>
+        <span class="hero-status-dot" title="Disponible en alternance"></span>
       </div>
 
-      <!-- Titre -->
       <h1 class="hero-title mb-2">
         Salut, je suis <span class="hero-name">Turpal DJABRAILOV</span>
       </h1>
 
-      <!-- Sous-titre -->
       <p class="hero-subtitle mb-2">
-        Développeur · Futur Ingénieur Informatique Intelligence Artificielle
+        Développeur web · Étudiant en Mastère Big Data & IA
       </p>
       <p class="hero-school mb-4">
-        <i class="fas fa-graduation-cap me-1"></i> CNAM Niort — Apprentissage
+        <i class="fas fa-graduation-cap me-1"></i> Sup de Vinci Nantes — Alternance
       </p>
 
-      <!-- Réseaux sociaux -->
       <div class="hero-socials mb-5">
         <a href="https://github.com/Badborz95" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="GitHub">
           <i class="fab fa-github"></i>
@@ -36,38 +30,59 @@
         </a>
       </div>
 
-      <!-- CTA Buttons -->
       <div class="hero-ctas">
         <a href="#projects" class="cta-btn cta-primary">
           <i class="fas fa-folder-open me-2"></i>Voir mes projets
         </a>
+
         <a href="#contact" class="cta-btn cta-outline">
           <i class="fas fa-envelope me-2"></i>Me contacter
         </a>
-        <a href="/doc/Turpal-CV.pdf" download="Turpal-CV.pdf" class="cta-btn cta-success">
-          <i class="fas fa-download me-2"></i>Télécharger CV
-        </a>
+
+        <button
+          type="button"
+          class="cta-btn cta-success cta-toggle"
+          @click="showCvChoices = !showCvChoices"
+          :aria-expanded="showCvChoices.toString()"
+          aria-controls="cv-choices"
+        >
+          <i class="fas fa-download me-2"></i>Télécharger le CV
+          <i class="fas fa-chevron-down ms-2 chevron" :class="{ open: showCvChoices }"></i>
+        </button>
+
+        <transition name="cv-drop">
+          <div v-if="showCvChoices" id="cv-choices" class="cv-choices">
+            <a href="/doc/Turpal-CV-Data-IA.pdf" download="Turpal-CV-Data-IA.pdf" class="cv-choice-btn">
+              <i class="fas fa-file-alt me-2"></i>CV Data & IA
+            </a>
+            <a href="/doc/Turpal-CV-Fullstack.pdf" download="Turpal-CV-Fullstack.pdf" class="cv-choice-btn">
+              <i class="fas fa-code me-2"></i>CV Fullstack
+            </a>
+          </div>
+        </transition>
       </div>
 
-      <!-- Scroll indicator -->
       <div class="hero-scroll-hint">
         <a href="#about" aria-label="Défiler vers le bas">
           <i class="fas fa-chevron-down"></i>
         </a>
       </div>
-
     </div>
   </section>
 </template>
 
 <script>
 export default {
-  name: 'HeroSection'
+  name: 'HeroSection',
+  data() {
+    return {
+      showCvChoices: false
+    };
+  }
 };
 </script>
 
 <style scoped>
-/* ===== SECTION ===== */
 .hero-section {
   min-height: 100vh;
   position: relative;
@@ -76,7 +91,6 @@ export default {
   padding-top: 80px;
 }
 
-/* ===== ORBES DÉCO ===== */
 .hero-bg-orb {
   position: absolute;
   border-radius: 50%;
@@ -102,13 +116,11 @@ export default {
   left: -60px;
 }
 
-/* ===== CONTENU ===== */
 .hero-content {
   position: relative;
   z-index: 1;
 }
 
-/* ===== AVATAR ===== */
 .hero-avatar-wrapper {
   position: relative;
   display: inline-block;
@@ -150,7 +162,7 @@ export default {
 
 @keyframes ring-rotate {
   from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  to { transform: rotate(360deg); }
 }
 
 .hero-status-dot {
@@ -169,10 +181,9 @@ export default {
 
 @keyframes pulse-dot {
   0%, 100% { box-shadow: 0 0 0 3px rgba(34,197,94,0.3); }
-  50%       { box-shadow: 0 0 0 6px rgba(34,197,94,0.12); }
+  50% { box-shadow: 0 0 0 6px rgba(34,197,94,0.12); }
 }
 
-/* ===== TEXTE ===== */
 .hero-title {
   font-size: clamp(1.6rem, 4vw, 2.4rem);
   font-weight: 700;
@@ -201,7 +212,6 @@ export default {
   font-weight: 500;
 }
 
-/* ===== RÉSEAUX SOCIAUX ===== */
 .hero-socials {
   display: flex;
   justify-content: center;
@@ -236,18 +246,20 @@ export default {
   box-shadow: 0 6px 18px rgba(0,119,181,0.4);
 }
 
-/* ===== BOUTONS CTA ===== */
 .hero-ctas {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
   margin-bottom: 3rem;
+  max-width: 720px;
+  margin-inline: auto;
 }
 
 .cta-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   padding: 12px 26px;
   border-radius: 50px;
   font-size: 0.92rem;
@@ -255,6 +267,8 @@ export default {
   text-decoration: none;
   transition: all 0.25s ease;
   letter-spacing: 0.2px;
+  border: none;
+  cursor: pointer;
 }
 
 .cta-primary {
@@ -295,7 +309,64 @@ export default {
   color: #fff;
 }
 
-/* ===== SCROLL HINT ===== */
+.cta-toggle {
+  cursor: pointer;
+}
+
+.chevron {
+  transition: transform 0.25s ease;
+}
+
+.chevron.open {
+  transform: rotate(180deg);
+}
+
+.cv-choices {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 4px;
+  margin-inline: auto;
+}
+
+.cv-choice-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 11px 18px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.88);
+  border: 1px solid rgba(102,126,234,0.18);
+  color: #334155;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+  transition: all 0.25s ease;
+}
+
+.cv-choice-btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(102,126,234,0.35);
+  color: #667eea;
+  box-shadow: 0 12px 24px rgba(102,126,234,0.16);
+}
+
+.cv-drop-enter-active,
+.cv-drop-leave-active {
+  transition: all 0.2s ease;
+  transform-origin: top center;
+}
+
+.cv-drop-enter-from,
+.cv-drop-leave-to {
+  opacity: 0;
+  transform: translateY(-8px) scaleY(0.96);
+}
+
 .hero-scroll-hint {
   position: absolute;
   bottom: 2rem;
@@ -317,13 +388,27 @@ export default {
 
 @keyframes bounce-y {
   0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(8px); }
+  50% { transform: translateY(8px); }
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 576px) {
-  .hero-avatar { width: 130px; height: 130px; }
-  .hero-ctas { flex-direction: column; align-items: center; }
-  .cta-btn { width: 100%; max-width: 260px; justify-content: center; }
+  .hero-avatar {
+    width: 130px;
+    height: 130px;
+  }
+
+  .hero-ctas {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-btn {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .cv-choices {
+    max-width: 280px;
+  }
 }
 </style>
