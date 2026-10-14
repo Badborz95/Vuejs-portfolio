@@ -5,26 +5,29 @@ export default async () => {
     const redis = Redis.fromEnv();
     const count = await redis.incr("portfolio:visits");
 
-    return {
-      statusCode: 200,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify({ count }),
-    };
+    return Response.json(
+      { count },
+      {
+        status: 200,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
   } catch (error) {
     console.error("Visitor counter error:", error);
 
-    return {
-      statusCode: 500,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    return Response.json(
+      {
         error: "Unable to update counter",
         details: error.message,
-      }),
-    };
+      },
+      {
+        status: 500,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
   }
 }

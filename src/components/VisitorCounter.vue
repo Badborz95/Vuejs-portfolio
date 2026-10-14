@@ -1,6 +1,6 @@
 <template>
   <div class="visitor-counter">
-    <span>👀 {{ count }} visites</span>
+    <span>👀 {{ displayCount }} visites</span>
   </div>
 </template>
 
@@ -8,17 +8,30 @@
 export default {
   name: "VisitorCounter",
   data() {
-    return { count: 0 };
+    return {
+      count: null,
+    };
+  },
+  computed: {
+    displayCount() {
+      return this.count === null ? "..." : this.count;
+    },
   },
   async mounted() {
     try {
       const res = await fetch("/.netlify/functions/visitors");
+
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+
       const data = await res.json();
-      this.count = data.count;
+      this.count = Number(data.count) || 0;
     } catch (error) {
+      console.error("VisitorCounter error:", error);
       this.count = 0;
     }
-  }
+  },
 };
 </script>
 
