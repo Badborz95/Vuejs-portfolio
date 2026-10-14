@@ -1,6 +1,6 @@
-const { Redis } = require("@upstash/redis");
+import { Redis } from "@upstash/redis";
 
-exports.handler = async () => {
+export default async () => {
   try {
     const redis = Redis.fromEnv();
     const count = await redis.incr("portfolio:visits");
@@ -27,4 +27,4 @@ exports.handler = async () => {
       }),
     };
   }
-};
+}
