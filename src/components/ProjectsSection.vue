@@ -142,6 +142,14 @@ const projectsData = [
     technologies: ["Angular", "Spring Boot", "Java", "MariaDB", "Bootstrap", "TypeScript", "Git", "SQL"],
     image: "/img/DawanSkills.png",
     demoLink: "https://skills.dawan.fr/#/"
+  },
+  {
+    id: 8, type: "perso",
+    title: "Doc Search AI - Recherche documentaire avec IA",
+    description: "Un projet personnel utilisant l'intelligence artificielle pour effectuer des recherches documentaires avancées, permettant aux utilisateurs de trouver rapidement des informations pertinentes.",
+    technologies: ["Python", "Flask", "OLLAMA API", "Bootstrap", "LLM Local"],
+    image: "/img/DocSearchAI.png",
+    githubLink: "https://github.com/Badborz95/DocSearch-AI"
   }
 ];
 
